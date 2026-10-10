@@ -106,6 +106,9 @@ To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. 
 - Fixed the NR DLL Version combo in the Neural Rendering section and the Version combo in the DLSS/SL section showing different versions after a swap. Both panels now stay in sync — changing the version in either panel immediately updates the other.
 - Fixed the NR DLL version selection being ignored on install. Selecting a specific version (e.g. 310.8.2) would silently install the latest version instead due to the staging folder name containing forward slashes (`310.8.2 (20/30/40/50)`) that Windows interpreted as path separators, creating a nested directory structure that the path lookup couldn't find. The staging directory is now named correctly (`310.8.2 (20-30-40-50)`) and the lookup scans recursively for any existing cached copy.
 
+**Cyberpunk 2077**
+- Fixed the install button showing "Download from Discord" instead of using the normal wiki/database mod download. The game now installs RenoDX like any other mod.
+
 **Start with Windows**
 - Fixed "Start with Windows" disabling itself on every launch. The settings panel was removing the startup entry during initialisation.
 
