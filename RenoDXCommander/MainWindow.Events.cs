@@ -740,7 +740,7 @@ public sealed partial class MainWindow
         // ── Open Folder ──
         var openFolderItem = new MenuFlyoutItem
         {
-            Text = "📂 Open Folder",
+            Text = "Open Folder",
             Tag = card,
         };
         openFolderItem.Click += CardOpenFolder_Click;
@@ -749,7 +749,7 @@ public sealed partial class MainWindow
         // ── Favourite ──
         var favItem = new MenuFlyoutItem
         {
-            Text = card.IsFavourite ? "★ Unfavourite" : "★ Favourite",
+            Text = card.IsFavourite ? "Unfavourite" : "Favourite",
             Tag  = card,
         };
         favItem.Click += (s, ev) => ViewModel.ToggleFavouriteCommand.Execute(card);
@@ -758,7 +758,7 @@ public sealed partial class MainWindow
         // ── Hide / Show ──
         var hideItem = new MenuFlyoutItem
         {
-            Text = card.HideButtonLabel,
+            Text = card.IsHidden ? "Show" : "Hide",
             Tag = card,
         };
         hideItem.Click += (s, ev) => ViewModel.ToggleHideGameCommand.Execute(card);
@@ -771,7 +771,7 @@ public sealed partial class MainWindow
         {
             var discussionItem = new MenuFlyoutItem
             {
-                Text = "ℹ Discussion / Instructions",
+                Text = "Discussion / Instructions",
                 Tag = card,
             };
             discussionItem.Click += async (s, ev) =>
@@ -787,7 +787,7 @@ public sealed partial class MainWindow
         {
             var notesItem = new MenuFlyoutItem
             {
-                Text = "💬 View Notes",
+                Text = "View Notes",
                 Tag = card,
             };
             notesItem.Click += async (s, ev) =>
