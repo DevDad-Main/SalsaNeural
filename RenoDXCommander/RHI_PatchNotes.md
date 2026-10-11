@@ -4,18 +4,12 @@
 
 To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. Takes about 30 seconds. Or paste a Personal Access Token (PAT) — no scopes needed, just generate one at [github.com/settings/tokens](https://github.com/settings/tokens) and paste it in.
 
-## v2.8.6 Beta 10 *(WIP)*
+## v2.8.6 Beta 10
 
 ### Important
 - **Windows App Runtime 2.5.1 is required for this update.** The installer downloads and installs it automatically if not already present. The runtime update includes reliability fixes for WinUI 3 that may reduce the frequency of the UI freeze.
 
 ### New
-
-**Desktop Shortcuts**
-- Right-click any game in your library and choose **Create Desktop Shortcut** to place a shortcut on your Desktop.
-- Launching the game through the shortcut goes via RHI — HDR Auto-Toggle and Resolution Auto-Toggle fire exactly as they would from clicking Launch inside the app.
-- Shortcut icons use the game's cover art: Steam games use Steam's library artwork, Xbox/Game Pass games pull from the Steam or Microsoft Store, and other launchers (GOG, EA, Epic) use the game's exe icon directly.
-- The context menu also includes **Favourite** and **Hide/Show** alongside the existing Open Folder and View Notes items.
 
 **DLDSR Control**
 - Enable or disable DLDSR (Deep Learning Dynamic Super Resolution) factors directly from RHI without opening NVIDIA Control Panel.
@@ -45,6 +39,12 @@ To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. 
 - "Latest (auto-update)" is unchanged — the game tracks the newest nightly and auto-updates as normal.
 - Pinning a build freezes that game at that version and excludes it from auto-updates. Useful when a newer nightly breaks something.
 - Pinned builds download on demand the first time and cache locally for future installs.
+
+**Desktop Shortcuts** *(WIP)*
+- Right-click any game in your library and choose **Create Desktop Shortcut** to place a shortcut on your Desktop.
+- Launching the game through the shortcut goes via RHI — HDR Auto-Toggle and Resolution Auto-Toggle fire exactly as they would from clicking Launch inside the app.
+- Shortcut icons use the game's own icon: pulled from the game executable for Steam, GOG, EA, Epic, and manually added games. Xbox/Game Pass games pull cover art from the Steam or Microsoft Store since the game executables are not directly accessible.
+- The context menu also includes **Favourite** and **Hide/Show** alongside the existing Open Folder and View Notes items.
 
 **RTX Encore**
 - RTX Encore (SilyNoMeta) is now available as a new Extras row, between OptiScaler and DLSS Enabler.

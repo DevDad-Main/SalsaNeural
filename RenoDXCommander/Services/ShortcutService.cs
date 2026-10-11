@@ -108,16 +108,10 @@ public static class ShortcutService
 
             if (steamAppId > 0)
             {
-                var icoPath  = Path.Combine(iconDir, $"{safeName}.ico");
-                var downloaded = await TryDownloadSteamIconAsync(http, steamAppId.Value, icoPath);
-                if (downloaded)
-                    iconPath = icoPath;
-                else
-                {
-                    var exePath = await ResolveGameExePathAsync(card, gameNameService, manifest);
-                    if (!string.IsNullOrEmpty(exePath) && File.Exists(exePath))
-                    { iconPath = exePath; iconIndex = 0; }
-                }
+                // Steam: use exe icon directly — same as GOG/EA/Epic, always accessible
+                var exePath = await ResolveGameExePathAsync(card, gameNameService, manifest);
+                if (!string.IsNullOrEmpty(exePath) && File.Exists(exePath))
+                { iconPath = exePath; iconIndex = 0; }
             }
             else if (!string.IsNullOrEmpty(xboxAumid))
             {
