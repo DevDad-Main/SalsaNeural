@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "game_count": 55498,
-  "generated": "2026-10-10T22:12:21Z",
+  "game_count": 55515,
+  "generated": "2026-10-11T10:41:24Z",
   "name_overrides": {
     "ACE COMBAT 8: WINGS OF THEVE": "Ace Combat 8: Wings of Theve",
     "AFOP": "Avatar: Frontiers of Pandora",
@@ -17442,6 +17442,8 @@
       "config_path": "%USERPROFILE%\\AppData\\LocalLow\\Worm Animation LLC\\BeatTheGame\\Unity\\807cdfa4-d8b2-495f-975e-b0952098c488\\Analytics",
       "engine": "Unity"
     },
+    "Beat the House": {},
+    "Beat the House 2": {},
     "Beat the Rhythm VR": {
       "steam_appid": 781200
     },
@@ -18719,6 +18721,7 @@
       "config_path": "%USERPROFILE%\\AppData\\LocalLow\\Luckshot Games\\Big Hops",
       "engine": "Unity"
     },
+    "Big Job": {},
     "Big Journey to Home": {
       "steam_appid": 388440
     },
@@ -25524,6 +25527,7 @@
       "steam_appid": 760330,
       "engine": "L├ûVE"
     },
+    "Byzantine: The Betrayal": {},
     "Bzzzt": {
       "steam_appid": 1293170,
       "dx11": true,
@@ -25759,6 +25763,9 @@
     "CaesarIA": {
       "steam_appid": 327640
     },
+    "Caesars Palace": {},
+    "Caesars Palace (1992)": {},
+    "Caesars Palace (1997)": {},
     "CAFE 0 ~The Drowned Mermaid~": {
       "steam_appid": 335660,
       "opengl": true,
@@ -27300,6 +27307,7 @@
       "steam_appid": 1009920,
       "engine": "RPG Maker"
     },
+    "Carrier: Fortress at Sea": {},
     "Carrion": {
       "steam_appid": 953490,
       "opengl": true,
@@ -44792,6 +44800,7 @@
       "config_path": "HKEY_CURRENT_USER\\SOFTWARE\\Treyarch\\Die By The Sword, <path-to-game>\\DBTS.INI",
       "engine": "Vsim"
     },
+    "Die DillyBillys": {},
     "Die Drachen von Laas": {},
     "Die Drei ??? - Geheimnis der Schattenhelden": {
       "steam_appid": 735620
@@ -106854,6 +106863,7 @@
     "Motocross: Chasing the Dream": {
       "steam_appid": 830540
     },
+    "MotoGP 07": {},
     "MotoGP 08": {
       "steam_appid": 21610,
       "dx9": true,
@@ -112778,6 +112788,9 @@
     "Nil-Ninjahtic: Ronin": {
       "steam_appid": 454130
     },
+    "Nile: Passage to Egypt": {
+      "engine": "Director"
+    },
     "Nimbatus": {
       "steam_appid": 383840,
       "dx11": true,
@@ -116807,6 +116820,9 @@
     },
     "Operation: Cheek Clapper": {
       "steam_appid": 1152670
+    },
+    "Operation: Eco-Nightmare": {
+      "engine": "Director"
     },
     "Operation: Followthrough": {
       "steam_appid": 3720530
@@ -138660,6 +138676,11 @@
     "Sacrament": {
       "steam_appid": 734380
     },
+    "Sacrata": {
+      "steam_appid": 3201450,
+      "dx12": true,
+      "config_path": "<path-to-game>\\Windows\\SACRATA\\Saved\\Config\\Windows\\"
+    },
     "Sacred": {
       "steam_appid": 12320,
       "config_path": "<path-to-game>\\SETTINGS.CFG"
@@ -139625,6 +139646,7 @@
       "steam_appid": 1639080,
       "engine": "Unity"
     },
+    "Sandwarriors": {},
     "Sandwich Sudoku": {
       "steam_appid": 1117310
     },
@@ -139979,6 +140001,7 @@
       "dx9": true,
       "config_path": "%LOCALAPPDATA%\\SAVAGE_The_Shard_of_Gosen\\settings.ini"
     },
+    "Savage: The Ultimate Quest for Survival": {},
     "Savana": {
       "steam_appid": 494970
     },
@@ -145197,6 +145220,7 @@
       "engine": "Unreal Engine 5"
     },
     "Silkolene Honda Motocross GP": {},
+    "Silkroad Online": {},
     "Silly Polly Beast": {
       "steam_appid": 1598780,
       "config_path": "%USERPROFILE%\\AppData\\LocalLow\\Andrei Chernyshov\\Silly Polly Beast\\",
@@ -152566,8 +152590,7 @@
     },
     "Squadron 42": {
       "steam_appid": 4045720,
-      "dx11": true,
-      "engine": "Starengine"
+      "engine": "StarEngine"
     },
     "Squadron: Sky Guardians": {
       "steam_appid": 673570
@@ -152970,7 +152993,7 @@
       "dx11": true,
       "vulkan": true,
       "config_path": "<path-to-game>\\LIVE\\USER",
-      "engine": "Starengine"
+      "engine": "StarEngine"
     },
     "Star Clash": {
       "steam_appid": 798190
@@ -162023,6 +162046,9 @@
     },
     "Team Up VR (Beta)": {
       "steam_appid": 916390
+    },
+    "Team Xtreme: Operation Weather Disaster": {
+      "engine": "Director"
     },
     "Teamfight Manager": {
       "steam_appid": 1372810,
@@ -187861,7 +187887,9 @@
       "dx11": true
     },
     "WarBreeds": {
-      "steam_appid": 2464660
+      "steam_appid": 2464660,
+      "config_path": "<path-to-game>\\WARBREED.CFG, <path-to-game>\\DATA\\prefs.dbg",
+      "engine": "Mohawk"
     },
     "Warbrush": {
       "steam_appid": 1168960
