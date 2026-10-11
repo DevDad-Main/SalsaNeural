@@ -1673,9 +1673,11 @@ public partial class OptiScalerService
             // Fast path: check PE version resource — OptiScaler always reports
             // FileDescription = "OptiScaler" and CompanyName = "nitec".
             // This avoids reading 32 MB of binary and is unambiguous.
+            bool versionResourceReadable = false;
             try
             {
                 var fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(filePath);
+                versionResourceReadable = true;
                 if (string.Equals(fvi.FileDescription, "OptiScaler", StringComparison.OrdinalIgnoreCase)
                     && string.Equals(fvi.CompanyName, "nitec", StringComparison.OrdinalIgnoreCase))
                     return true;
@@ -1684,6 +1686,11 @@ public partial class OptiScalerService
             {
                 // Version resource unreadable — fall through to binary scan
             }
+
+            // Binary scan fallback: only run when the version resource was unreadable.
+            // If FileVersionInfo returned a description for a different tool (e.g. SCSKiller),
+            // that's a definitive "not OptiScaler" — no need to scan.
+            if (versionResourceReadable) return false;
 
             // Fallback: binary scan for unique internal strings.
             // OptiScaler's string data lives near the END of its ~24 MB binary,
