@@ -1267,11 +1267,7 @@ public class AddonPackService : IAddonPackService
     {
         try
         {
-            // /releases/latest only returns full releases, missing pre-releases.
-            // Rewrite to /releases?per_page=1 which returns the newest release regardless of type.
             var effectiveUrl = releaseApiUrl;
-            if (effectiveUrl.EndsWith("/releases/latest", StringComparison.OrdinalIgnoreCase))
-                effectiveUrl = effectiveUrl[..^"/latest".Length] + "?per_page=1";
 
             using var req = new HttpRequestMessage(HttpMethod.Get, effectiveUrl);
             req.Headers.Add("User-Agent", "RHI");
