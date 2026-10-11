@@ -3629,7 +3629,14 @@ public sealed partial class MainWindow
             bottomBorder.Children.Add(presetsGrid);
         }
 
-        bottomBorder.Children.Add(new Border { Height = 1, Background = UIFactory.Brush(ResourceKeys.BorderDefaultBrush) });
+        bottomBorder.Children.Add(new TextBlock
+        {
+            Text = "Settings above apply in real time. Only deploy an ini if the game folder has no OptiScaler.ini yet, or you want a fresh one — it will not carry over the settings configured above.",
+            FontSize = 11,
+            Foreground = UIFactory.Brush(ResourceKeys.InlineDescriptionBrush),
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 4, 0, 4),
+        });
 
         var deployBtn = new Button
         {

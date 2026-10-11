@@ -13,6 +13,11 @@ To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. 
 - Based on janblade's fork with multi-pass Neural Rendering support and a bundled NR forwarder (`nvngx.dll_dlssnr.dll`). Requires a separately staged `nvngx_dlssnr.dll` runtime (same as the DLSS NR variant).
 - Auto-updates alongside other OptiScaler variants and appears in the update history.
 
+### Changes
+
+**OptiScaler Settings**
+- Added a note in the OptiScaler ⚙ cog above the Deploy OptiScaler.ini button clarifying that settings in the cog apply in real time and the deploy button is only for seeding a fresh ini — it does not write the configured settings.
+
 ### Bug Fixes
 
 **ReShade Screenshot Discord Fix**
