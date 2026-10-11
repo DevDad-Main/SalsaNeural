@@ -43,7 +43,7 @@ To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. 
 **Desktop Shortcuts** *(WIP)*
 - Right-click any game in your library and choose **Create Desktop Shortcut** to place a shortcut on your Desktop.
 - Launching the game through the shortcut goes via RHI — HDR Auto-Toggle and Resolution Auto-Toggle fire exactly as they would from clicking Launch inside the app.
-- Shortcut icons use the game's own icon: pulled from the game executable for Steam, GOG, EA, Epic, and manually added games. Xbox/Game Pass games pull cover art from the Steam or Microsoft Store since the game executables are not directly accessible — icon quality for Xbox games is a work in progress and will be improved in a future update.
+- Shortcut icons use the game's own icon: pulled from the game executable for Steam, GOG, EA, Epic, and manually added games. Xbox/Game Pass games pull cover art from the Steam or Microsoft Store since the game executables are not directly accessible — icon quality and visibility for Xbox games is a work in progress and will be improved in a future update.
 - The context menu also includes **Favourite** and **Hide/Show** alongside the existing Open Folder and View Notes items.
 
 **RTX Encore**
