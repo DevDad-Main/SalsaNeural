@@ -763,6 +763,8 @@ public partial class DetailPanelBuilder
             var osVariant = _window.ViewModel.GetOsVariant(card.GameName, card.Source ?? "");
             var osWikiUrl = osVariant == "DlssNr"
                 ? "https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass/releases"
+                : osVariant == "F5"
+                ? "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/releases"
                 : "https://github.com/optiscaler/OptiScaler/wiki";
             ToolTipService.SetToolTip(statusBlock, "Click to open OptiScaler releases");
             statusBlock.PointerPressed += async (s, e) =>
@@ -784,7 +786,19 @@ public partial class DetailPanelBuilder
             DataContext = AddonType.OptiScaler,
         };
         ApplyInfoButtonStyle(infoBtn, card, AddonType.OptiScaler);
-        infoBtn.Click += (s, e) => _window.InfoButton_Click(s, e);
+        var osVariantForInfo = _window.ViewModel.GetOsVariant(card.GameName, card.Source ?? "");
+        if (osVariantForInfo == "DlssNr" || osVariantForInfo == "F5")
+        {
+            var forkUrl = osVariantForInfo == "F5"
+                ? "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass"
+                : "https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass";
+            ToolTipService.SetToolTip(infoBtn, $"Open {(osVariantForInfo == "F5" ? "F5 DLSSNR" : "DLSS NR")} GitHub page");
+            infoBtn.Click += (s, e) => _ = Windows.System.Launcher.LaunchUriAsync(new Uri(forkUrl));
+        }
+        else
+        {
+            infoBtn.Click += (s, e) => _window.InfoButton_Click(s, e);
+        }
         Grid.SetColumn(infoBtn, 2);
         row.Children.Add(infoBtn);
 
