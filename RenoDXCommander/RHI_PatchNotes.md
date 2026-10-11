@@ -4,6 +4,15 @@
 
 To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. Takes about 30 seconds. Or paste a Personal Access Token (PAT) — no scopes needed, just generate one at [github.com/settings/tokens](https://github.com/settings/tokens) and paste it in.
 
+## v2.8.7
+
+### Bug Fixes
+
+**ReShade Screenshot Discord Fix**
+- Fixed the 32-bit addon not being deployed to 32-bit games. When downloading from GitHub releases, RHI now stages both the `.addon32` and `.addon64` files when both are available as release assets.
+
+---
+
 ## v2.8.6
 
 ### Important
