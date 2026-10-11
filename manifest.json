@@ -1503,19 +1503,19 @@
     "dlss5-dx11-bridge": {
       "packageName": "DLSS5 DX11 Bridge",
       "description": "Enables DLSS 5 Neural Rendering in DX11 and Vulkan games that already have native DLSS. Mirrors the game\u2019s DLSS onto a private DX12 session for the NR addon to hook.",
-      "releaseApiUrl": "https://api.github.com/repos/NIGos/dlss5-bridge/releases/latest",
+      "releaseApiUrl": "https://api.github.com/repos/NIGos/dlss5-bridge/releases?per_page=1",
       "repositoryUrl": "https://github.com/NIGos/dlss5-bridge"
     },
     "dlss5-feed": {
       "packageName": "DLSS5 Feeder",
       "description": "Enables DLSS 5 Neural Rendering in games with no native DLSS (DX11, DX12, Vulkan, OpenGL, 32-bit). Feeds a synthetic DLSS contract from ReShade depth and motion vectors. Requires motion vector shaders \u2014 see How To Use.",
-      "releaseApiUrl": "https://api.github.com/repos/jlrouzies-fr/DLSS5-Feeder/releases/latest",
+      "releaseApiUrl": "https://api.github.com/repos/jlrouzies-fr/DLSS5-Feeder/releases?per_page=1",
       "repositoryUrl": "https://github.com/jlrouzies-fr/DLSS5-Feeder"
     },
     "mfgunlock": {
       "packageName": "MFG Ada Unlock",
       "description": "Unlocks DLSS Multi Frame Generation (3x/4x and above) on RTX 40-series cards, which NVIDIA ships gated to RTX 50-series only. Corrects frame interpolation so generated frames carry new motion. In-memory only \u2014 no files on disk are modified. Requires a game with DLSS frame generation via Streamline and a modern nvngx_dlssg.dll (310.x).",
-      "releaseApiUrl": "https://api.github.com/repos/mavismmg/MFGAdaUnlock-RenoDx/releases/latest",
+      "releaseApiUrl": "https://api.github.com/repos/mavismmg/MFGAdaUnlock-RenoDx/releases?per_page=1",
       "repositoryUrl": "https://github.com/mavismmg/MFGAdaUnlock-RenoDx"
     },
     "renodx-upgrade": {
