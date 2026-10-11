@@ -11,6 +11,9 @@ To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. 
 **ReShade Screenshot Discord Fix**
 - Fixed the 32-bit addon not being deployed to 32-bit games. When downloading from GitHub releases, RHI now stages both the `.addon32` and `.addon64` files when both are available as release assets.
 
+**OptiScaler Detection**
+- Fixed tools that reference OptiScaler internally (e.g. SCSKiller) being incorrectly detected as an OptiScaler installation. The binary signature scan now only runs when the file has no version resource — if the file clearly identifies itself as a different tool, it is no longer flagged as OptiScaler.
+
 ---
 
 ## v2.8.6
