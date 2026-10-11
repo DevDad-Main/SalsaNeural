@@ -6,6 +6,13 @@ To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. 
 
 ## v2.8.7
 
+### New
+
+**OptiScaler F5 DLSSNR**
+- Added F5 DLSSNR as a new OptiScaler variant, available in the OptiScaler ⚙ cog version selector alongside Stable, Nightly, and DLSS NR.
+- Based on janblade's fork with multi-pass Neural Rendering support and a bundled NR forwarder (`nvngx.dll_dlssnr.dll`). Requires a separately staged `nvngx_dlssnr.dll` runtime (same as the DLSS NR variant).
+- Auto-updates alongside other OptiScaler variants and appears in the update history.
+
 ### Bug Fixes
 
 **ReShade Screenshot Discord Fix**
