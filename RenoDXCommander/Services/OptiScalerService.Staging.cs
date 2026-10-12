@@ -1025,6 +1025,17 @@ public partial class OptiScalerService
             _availableNightlyBuilds.Clear();
             _availableNightlyBuilds.AddRange(builds);
 
+            // If the newest available build is newer than what's staged, flag as update available.
+            // This catches the case where the update check cooldown prevented CheckForNightlyUpdateAsync
+            // from running — the available builds list is always fresh (fetched at startup).
+            var newestAvailable = builds.FirstOrDefault();
+            var newestStaged    = GetLatestStagedNightlyBuild();
+            if (newestAvailable != null && newestAvailable != newestStaged)
+            {
+                HasUpdateNightly = true;
+                CrashReporter.Log($"[OptiScalerService.FetchAvailableNightlyBuildsAsync] Update detected: staged={newestStaged ?? "(none)"}, available={newestAvailable} → HasUpdateNightly=True");
+            }
+
             // Persist to disk
             try
             {
