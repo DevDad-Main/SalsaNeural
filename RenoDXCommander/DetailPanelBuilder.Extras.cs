@@ -765,6 +765,8 @@ public partial class DetailPanelBuilder
                 ? "https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass/releases"
                 : osVariant == "F5"
                 ? "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/releases"
+                : osVariant == "Nightly"
+                ? "https://github.com/optiscaler/OptiScaler-nightly/releases"
                 : "https://github.com/optiscaler/OptiScaler/wiki";
             ToolTipService.SetToolTip(statusBlock, "Click to open OptiScaler releases");
             statusBlock.PointerPressed += async (s, e) =>
@@ -787,12 +789,15 @@ public partial class DetailPanelBuilder
         };
         ApplyInfoButtonStyle(infoBtn, card, AddonType.OptiScaler);
         var osVariantForInfo = _window.ViewModel.GetOsVariant(card.GameName, card.Source ?? "");
-        if (osVariantForInfo == "DlssNr" || osVariantForInfo == "F5")
+        if (osVariantForInfo == "DlssNr" || osVariantForInfo == "F5" || osVariantForInfo == "Nightly")
         {
             var forkUrl = osVariantForInfo == "F5"
                 ? "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass"
-                : "https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass";
-            ToolTipService.SetToolTip(infoBtn, $"Open {(osVariantForInfo == "F5" ? "F5 DLSSNR" : "DLSS NR")} GitHub page");
+                : osVariantForInfo == "DlssNr"
+                ? "https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass"
+                : "https://github.com/optiscaler/OptiScaler-nightly";
+            var forkLabel = osVariantForInfo == "F5" ? "F5 DLSSNR" : osVariantForInfo == "DlssNr" ? "DLSS NR" : "OptiScaler Nightly";
+            ToolTipService.SetToolTip(infoBtn, $"Open {forkLabel} GitHub page");
             infoBtn.Click += (s, e) => _ = Windows.System.Launcher.LaunchUriAsync(new Uri(forkUrl));
         }
         else
