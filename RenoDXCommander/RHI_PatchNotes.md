@@ -18,6 +18,10 @@ To connect: open **Settings → GitHub API** and click **Sign in with GitHub**. 
 **OptiScaler Settings**
 - Added a note in the OptiScaler ⚙ cog above the Deploy OptiScaler.ini button clarifying that settings in the cog apply in real time and the deploy button is only for seeding a fresh ini — it does not write the configured settings.
 
+**OptiScaler Nightly**
+- Fixed nightly builds not auto-updating to newer builds when the update check cooldown was active. The available builds list is now checked at startup and on every refresh, and update detection no longer depends on the update check running first.
+- Fixed clicking Update on a nightly game installing the old build instead of downloading the new one. The install flow now always downloads the latest nightly when an update is flagged, and re-resolves the staging directory after download.
+
 ### Bug Fixes
 
 **ReShade Screenshot Discord Fix**
