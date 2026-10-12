@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "game_count": 55529,
-  "generated": "2026-10-11T20:29:17Z",
+  "game_count": 55532,
+  "generated": "2026-10-12T05:18:11Z",
   "name_overrides": {
     "ACE COMBAT 8: WINGS OF THEVE": "Ace Combat 8: Wings of Theve",
     "AFOP": "Avatar: Frontiers of Pandora",
@@ -3323,6 +3323,7 @@
       "config_path_xbox": "%LOCALAPPDATA%\\Packages\\505GAMESS.P.A.35784A6D3DB4D_tefn33qh9azfc\\LocalState\\AbzuGame\\Saved\\Config\\UWP\\",
       "engine": "Unreal Engine 4"
     },
+    "ACA NeoGeo Fatal Fury 3": {},
     "ACA NeoGeo The King of Fighters '94": {},
     "ACA NeoGeo The King of Fighters '95": {},
     "ACA NeoGeo The King of Fighters '96": {},
@@ -8180,6 +8181,10 @@
     },
     "Amphora": {
       "steam_appid": 331510
+    },
+    "Amplexus Protocol": {
+      "steam_appid": 3759690,
+      "engine": "Ren'Py"
     },
     "Amplitude: A Visual Novel": {
       "steam_appid": 704680,
@@ -83234,6 +83239,10 @@
       "config_path": "%APPDATA%\\Wyrmkeep\\Inherit the Earth Data\\ite.prf",
       "engine": "SAGA"
     },
+    "Inherited Shadows": {
+      "steam_appid": 2939450,
+      "engine": "Unity"
+    },
     "Inhuman": {
       "steam_appid": 1692290,
       "engine": "Unreal Engine 4"
@@ -145302,7 +145311,8 @@
     "Silverball": {},
     "Silverfall": {
       "steam_appid": 4420,
-      "dx9": true
+      "dx9": true,
+      "engine": "Gamebryo"
     },
     "Silverfall: Earth Awakening": {
       "steam_appid": 4470,
@@ -166829,7 +166839,9 @@
     "The Fool and his Money": {
       "engine": "Flash"
     },
-    "The Fool's Errand": {},
+    "The Fool's Errand": {
+      "engine": "Fool"
+    },
     "The Forbidden Arts": {
       "steam_appid": 735060
     },
