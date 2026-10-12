@@ -954,7 +954,8 @@ public partial class OptiScalerService
             if (File.Exists(NightlyVersionFilePath)) File.Delete(NightlyVersionFilePath);
             if (File.Exists(NightlyAvailableBuildsPath)) File.Delete(NightlyAvailableBuildsPath);
             _availableNightlyBuilds.Clear();
-            HasUpdateNightly = false;
+            // Do NOT reset HasUpdateNightly here — the caller set it true for a reason.
+            // EnsureNightlyStagingAsync checks HasUpdateNightly to decide whether to download.
             CrashReporter.Log("[OptiScalerService.ClearNightlyStaging] Nightly staging cache cleared (versioned builds preserved)");
         }
         catch (Exception ex)
