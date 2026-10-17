@@ -107,10 +107,10 @@ public static class GameReportEncoder
     private static string FormatMarkdown(Dictionary<string, object?> r)
     {
         var sb = new StringBuilder();
-        sb.AppendLine($"# RHI Game Report — {r["gameName"]}");
+        sb.AppendLine($"# SalsaNeural Game Report — {r["gameName"]}");
         sb.AppendLine();
         sb.AppendLine($"- **Date:** {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-        sb.AppendLine($"- **RHI Version:** {r["rhiVersion"]}");
+        sb.AppendLine($"- **SalsaNeural Version:** {r["rhiVersion"]}");
         sb.AppendLine($"- **Store:** {r["store"]}");
         if (r["originalStoreName"] is string osn && osn != (string?)r["gameName"])
             sb.AppendLine($"- **Original Store Name:** {osn}");

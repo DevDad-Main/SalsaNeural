@@ -1767,7 +1767,7 @@
                                                    Foreground="{StaticResource TextPrimaryBrush}"/>
                                         <TextBlock TextWrapping="Wrap" FontSize="11"
                                                    Foreground="{StaticResource InlineDescriptionBrush}" LineHeight="18"
-                                                   Text="Register RHI as the nxm:// handler so Nexus &quot;Mod Manager Download&quot; buttons open directly in SalsaNeural."/>
+                                                   Text="Register SalsaNeural as the nxm:// handler so Nexus &quot;Mod Manager Download&quot; buttons open directly in SalsaNeural."/>
                                     </StackPanel>
 
                                     <!-- Row 1 Left: API key input + Connect/Disconnect buttons -->
@@ -1931,7 +1931,7 @@
                                         <TextBlock Margin="0,8,0,0" FontSize="11" TextWrapping="Wrap"
                                                    Foreground="{StaticResource InlineDescriptionBrush}"
                                                    Text="Or paste a GitHub Personal Access Token (PAT) — stays valid until you revoke it. No scopes needed, just generate and paste."/>
-                                        <HyperlinkButton NavigateUri="https://github.com/settings/tokens/new?description=RHI&amp;scopes="
+                                        <HyperlinkButton NavigateUri="https://github.com/settings/tokens/new?description=SalsaNeural&amp;scopes="
                                                          FontSize="11" Padding="0" Margin="0,-4,0,0"
                                                          Content="Create a token at github.com/settings/tokens (no boxes to tick)"/>
                                         <StackPanel Orientation="Horizontal" Spacing="6">

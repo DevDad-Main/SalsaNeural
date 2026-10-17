@@ -50,7 +50,7 @@ public partial class App : Application
             };
 
             var client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Add("User-Agent", "RHI/2.0");
+            client.DefaultRequestHeaders.Add("User-Agent", "SalsaNeural");
             // GitHub API token — raises rate limit from 60 to 5000 req/hour for all services.
             // Set as a default header so every service inherits it without per-request wiring.
             var ghToken = DevUnlockService.GitHubApiToken;
@@ -488,7 +488,7 @@ public partial class App : Application
                 using var valCts = new CancellationTokenSource(TimeSpan.FromSeconds(4));
                 var req = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, "https://api.github.com/user");
                 req.Headers.TryAddWithoutValidation("Authorization", $"Bearer {token}");
-                req.Headers.TryAddWithoutValidation("User-Agent", "RHI");
+                req.Headers.TryAddWithoutValidation("User-Agent", "SalsaNeural");
                 using var resp = await http.SendAsync(req, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, valCts.Token);
                 if (resp.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {

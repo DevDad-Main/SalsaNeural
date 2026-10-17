@@ -265,6 +265,8 @@ public class UpdateService : IUpdateService
             Process.Start(new ProcessStartInfo
             {
                 FileName        = downloadedFilePath,
+                // Inno per-user installer: silent with a progress bar, no restart prompt.
+                Arguments       = "/SILENT /SUPPRESSMSGBOXES /NORESTART",
                 UseShellExecute = true,
             });
 

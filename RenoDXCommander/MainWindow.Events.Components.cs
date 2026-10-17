@@ -122,7 +122,7 @@ public sealed partial class MainWindow
             catch (Exception ex) { card.RsActionMessage = $"❌ {ex.Message}"; }
         };
         if (!rsPresetExists)
-            ToolTipService.SetToolTip(deployPresetBtn, "No ReShadePreset.ini found in RHI config folder");
+            ToolTipService.SetToolTip(deployPresetBtn, "No ReShadePreset.ini found in SalsaNeural config folder");
         content.Children.Add(deployPresetBtn);
 
         // Open ReShade.ini
@@ -185,7 +185,7 @@ public sealed partial class MainWindow
                 try
                 {
                     // Copy to temp as "ReShade.log" so clipboard file has the correct name
-                    var tempDir = Path.Combine(Path.GetTempPath(), "RHI_clipboard");
+                    var tempDir = Path.Combine(Path.GetTempPath(), "SalsaNeural_clipboard");
                     Directory.CreateDirectory(tempDir);
                     var tempFile = Path.Combine(tempDir, "ReShade.log");
                     File.Copy(logPath, tempFile, overwrite: true);
@@ -363,7 +363,7 @@ public sealed partial class MainWindow
             FontSize = 12,
             HorizontalAlignment = HorizontalAlignment.Stretch,
         };
-        ToolTipService.SetToolTip(keepUpdatedCombo, "When No, RHI will not automatically update this game's reshade.ini on ReShade install, update, or Apply to All Games.");
+        ToolTipService.SetToolTip(keepUpdatedCombo, "When No, SalsaNeural will not automatically update this game's reshade.ini on ReShade install, update, or Apply to All Games.");
         keepUpdatedCombo.Items.Add("Yes");
         keepUpdatedCombo.Items.Add("No");
 
@@ -2024,7 +2024,7 @@ public sealed partial class MainWindow
             {
                 try
                 {
-                    var tempDir = Path.Combine(Path.GetTempPath(), "RHI_clipboard");
+                    var tempDir = Path.Combine(Path.GetTempPath(), "SalsaNeural_clipboard");
                     Directory.CreateDirectory(tempDir);
                     var tempFile = Path.Combine(tempDir, Path.GetFileName(logFile));
                     File.Copy(logFile, tempFile, overwrite: true);

@@ -8,7 +8,7 @@ namespace RenoDXCommander.Services;
 /// </summary>
 public static class TrayIconService
 {
-    private const string AppId = "RHI.ReShadeHDRInstaller";
+    private const string AppId = "SalsaNeural";
 
     /// <summary>
     /// Sets the App User Model ID for the current process.

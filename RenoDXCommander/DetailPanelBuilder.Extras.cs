@@ -2761,7 +2761,7 @@ public partial class DetailPanelBuilder
             if (isCurrent)     contentRow.Children.Add(MakeBadge("Current", "#182840", "#7AACDD", "#2A4468"));
             btn.Content = contentRow;
             if (isRhiOwned)    ToolTipService.SetToolTip(btn, $"In use by {rhiConflicts[name]}. Choose a different name.");
-            else if (isOnDisk) ToolTipService.SetToolTip(btn, $"A '{name}' already exists ({onDiskConflicts[name]}). RHI will back it up and restore it on uninstall.");
+            else if (isOnDisk) ToolTipService.SetToolTip(btn, $"A '{name}' already exists ({onDiskConflicts[name]}). SalsaNeural will back it up and restore it on uninstall.");
             btn.Tag = name;
             btn.Click += (s, ev) => { chosen = (s as Button)?.Tag as string; if (s is FrameworkElement fe) FindParentContentDialog(fe)?.Hide(); };
             listPanel.Children.Add(btn);

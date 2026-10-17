@@ -517,7 +517,7 @@ public partial class ShaderPackService
         try
         {
             var req = new HttpRequestMessage(HttpMethod.Head, pack.Url);
-            req.Headers.Add("User-Agent", "RHI");
+            req.Headers.Add("User-Agent", "SalsaNeural");
             var resp = await _http.SendAsync(req);
             if (!resp.IsSuccessStatusCode) return "unknown";
             var etag = resp.Headers.ETag?.Tag;

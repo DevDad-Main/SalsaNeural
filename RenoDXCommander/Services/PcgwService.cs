@@ -240,7 +240,7 @@ public class PcgwService : IPcgwService
         {
             using var req = new System.Net.Http.HttpRequestMessage(
                 System.Net.Http.HttpMethod.Get, CentralDataUrl);
-            req.Headers.UserAgent.ParseAdd("RHI/1.0");
+            req.Headers.UserAgent.ParseAdd("SalsaNeural/1.0");
 
             // ETag-based conditional GET — skip download when content hasn't changed
             var storedETag = File.Exists(CentralETagPath)

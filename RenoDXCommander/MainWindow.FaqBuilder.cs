@@ -25,20 +25,20 @@ public sealed partial class MainWindow
         // Welcome section
         panel.Children.Add(BuildFaqSection(
             null, "Welcome to SalsaNeural", "AccentTealBrush",
-            "RHI auto-detects your games and lets you install HDR mods, shaders, frame limiters, and manage NVIDIA driver settings — all from one place. Here's how to get started.",
+            "SalsaNeural auto-detects your games and lets you install HDR mods, shaders, frame limiters, and manage NVIDIA driver settings — all from one place. Here's how to get started.",
             null));
 
         // Step 1: Select a Game
         panel.Children.Add(BuildFaqStep(1,
             "Select a Game",
             "Your games are listed in the sidebar on the left. Click any game to see its details and available actions. Use the filter chips (All Games, Installed, Unreal, etc.) and search box to find specific games.",
-            "Tip: Double-click a game to launch it directly. Drag and drop a game's .exe file onto RHI to add games not auto-detected."));
+            "Tip: Double-click a game to launch it directly. Drag and drop a game's .exe file onto SalsaNeural to add games not auto-detected."));
 
         // Step 2: Install ReShade
         panel.Children.Add(BuildFaqStep(2,
             "Install ReShade",
-            "ReShade is required for RenoDX HDR mods to work. Click 'Install ReShade' on the game's detail panel. RHI automatically downloads and installs the correct version with full addon support.",
-            "ReShade version can be changed per-game via the game overrides section — choose Stable, Nightly, Legacy, or a custom ReShade DLL.\nVulkan Games: Vulkan games (like Doom Eternal) require admin privileges. RHI will prompt for elevation when needed.\nDrag and drop ReShade preset files (.ini) onto a game to install them automatically."));
+            "ReShade is required for RenoDX HDR mods to work. Click 'Install ReShade' on the game's detail panel. SalsaNeural automatically downloads and installs the correct version with full addon support.",
+            "ReShade version can be changed per-game via the game overrides section — choose Stable, Nightly, Legacy, or a custom ReShade DLL.\nVulkan Games: Vulkan global-layer installs require administrator privileges, which SalsaNeural never requests — Vulkan games are not supported in this environment.\nDrag and drop ReShade preset files (.ini) onto a game to install them automatically."));
 
         // Step 3a: RenoDX
         panel.Children.Add(BuildFaqSection(
@@ -50,7 +50,7 @@ public sealed partial class MainWindow
         panel.Children.Add(BuildFaqSection(
             "3b", "Luma", "AccentTealBrush",
             "Luma is an alternative mod framework developed by Pumbo (HDR Den). Depending on the game, a Luma mod may add HDR, DLAA (Deep Learning Anti-Aliasing), game-specific rendering fixes, or a combination of these — check the Info button for details on what each mod offers.\n\n• Completed mods — named Luma mods for supported games, shown on the Luma row.\n• Generic Luma — available for all DX11 Unreal Engine games. SalsaNeural installs it automatically and applies any game-specific Engine.ini tweaks or launch arguments listed on the Luma wiki.\n\nYou can install RenoDX and Luma on the same game — but there's no guarantee they'll work together on every title. SalsaNeural will warn you the first time you try to install both.",
-            "Luma requires ReShade — it will be greyed out until ReShade is installed.\nThe Luma ⚙ cog lets you toggle TAA Engine.ini settings for games that need them.\nIf a game needs a specific launch argument (e.g. -dx11), RHI sets it automatically on install and removes it on uninstall. Launch arguments only apply when the game is launched through RHI.\nCheck the Info button on the Luma row for game-specific notes — completed mods often include details on what the mod adds or any in-game settings required."));
+            "Luma requires ReShade — it will be greyed out until ReShade is installed.\nThe Luma ⚙ cog lets you toggle TAA Engine.ini settings for games that need them.\nIf a game needs a specific launch argument (e.g. -dx11), SalsaNeural sets it automatically on install and removes it on uninstall. Launch arguments only apply when the game is launched through SalsaNeural.\nCheck the Info button on the Luma row for game-specific notes — completed mods often include details on what the mod adds or any in-game settings required."));
 
         // Step 4: Choose Shaders
         panel.Children.Add(BuildFaqStep(4,
@@ -73,8 +73,8 @@ public sealed partial class MainWindow
         // Step 7: DLSS/Streamline
         panel.Children.Add(BuildFaqStep(7,
             "Update DLSS / Streamline (Optional)",
-            "Games with DLSS or Streamline DLLs have a dedicated section on the detail panel showing version info. Click to update to the latest version. Using the newest versions is recommended for best performance and quality. RHI backs up originals automatically so you can restore anytime.",
-            "When new DLSS or Streamline versions release, they will appear in RHI automatically. Set your default DLSS preset in Settings. Per-game presets can be changed in the DLSS section on each game's detail panel."));
+            "Games with DLSS or Streamline DLLs have a dedicated section on the detail panel showing version info. Click to update to the latest version. Using the newest versions is recommended for best performance and quality. SalsaNeural backs up originals automatically so you can restore anytime.",
+            "When new DLSS or Streamline versions release, they will appear in SalsaNeural automatically. Set your default DLSS preset in Settings. Per-game presets can be changed in the DLSS section on each game's detail panel."));
 
         // OptiScaler
         panel.Children.Add(BuildFaqSpecialSection("⚙", "AccentAmberBrush",
@@ -96,7 +96,7 @@ public sealed partial class MainWindow
 
         // NVIDIA Driver Settings
         panel.Children.Add(BuildFaqInfoSection("NVIDIA Driver Settings",
-            "RHI can manage per-game NVIDIA driver profiles. These settings are available directly on each game's detail panel:",
+            "SalsaNeural can manage per-game NVIDIA driver profiles. These settings are available directly on each game's detail panel:",
             new[]
             {
                 "VSync: On, Off, or Adaptive (Fast Sync)",
@@ -109,7 +109,7 @@ public sealed partial class MainWindow
         // Vulkan Games
         panel.Children.Add(BuildFaqSpecialSection("V", "AccentPurpleBrush",
             "Vulkan Games",
-            "Vulkan games (shown with a 'Vulkan' badge) use a global ReShade layer installed to C:\\ProgramData\\ReShade. This requires administrator privileges. When you install ReShade on a Vulkan game, RHI will prompt for elevation.",
+            "Vulkan games (shown with a 'Vulkan' badge) use a global ReShade layer installed to C:\\ProgramData\\ReShade. This requires administrator privileges, which SalsaNeural never requests — Vulkan games are not supported in this environment.",
             "All Vulkan games share the same ReShade installation. Updating ReShade on one Vulkan game updates it for all.\nPer-game RenoDX addons and shaders are still installed individually to each game folder."));
 
         // Adding Games Manually
@@ -133,8 +133,8 @@ public sealed partial class MainWindow
         // System Tray
         panel.Children.Add(BuildFaqSpecialSection("◰", "AccentPurpleBrush",
             "System Tray",
-            "RHI can minimize to the system tray instead of closing. Right-click the tray icon to quickly launch recent games without opening the main window.",
-            "Enable 'Close to System Tray' in Settings to keep RHI running in the background. The tray icon provides quick access to your most recently played games. RHI automatically checks for updates every 4 hours while running, so everything stays up to date."));
+            "SalsaNeural can minimize to the system tray instead of closing. Right-click the tray icon to quickly launch recent games without opening the main window.",
+            "Enable 'Close to System Tray' in Settings to keep SalsaNeural running in the background. The tray icon provides quick access to your most recently played games. SalsaNeural automatically checks for updates every 4 hours while running, so everything stays up to date."));
 
         // Need More Help
         panel.Children.Add(BuildFaqLinksSection());

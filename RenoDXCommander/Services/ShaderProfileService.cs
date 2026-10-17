@@ -74,12 +74,12 @@ public static class ShaderProfileService
         ShaderProfile? profile = null)
     {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-        var zipPath = Path.Combine(Path.GetTempPath(), $"RHI_Shaders_{timestamp}.zip");
+        var zipPath = Path.Combine(Path.GetTempPath(), $"SalsaNeural_Shaders_{timestamp}.zip");
 
         if (File.Exists(zipPath)) File.Delete(zipPath);
 
         // Build a temp staging dir of selected files, then zip it
-        var tempDir = Path.Combine(Path.GetTempPath(), $"RHI_Shaders_stage_{timestamp}");
+        var tempDir = Path.Combine(Path.GetTempPath(), $"SalsaNeural_Shaders_stage_{timestamp}");
         if (Directory.Exists(tempDir)) Directory.Delete(tempDir, recursive: true);
         Directory.CreateDirectory(tempDir);
 

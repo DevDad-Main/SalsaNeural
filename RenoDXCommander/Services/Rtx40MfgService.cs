@@ -146,7 +146,7 @@ public class Rtx40MfgService
             if (forceRefresh)
             {
                 var req = new HttpRequestMessage(HttpMethod.Get, GitHubApiUrl);
-                req.Headers.Add("User-Agent", "RHI");
+                req.Headers.Add("User-Agent", "SalsaNeural");
                 var resp = await _http.SendAsync(req).ConfigureAwait(false);
                 if (!resp.IsSuccessStatusCode)
                 {

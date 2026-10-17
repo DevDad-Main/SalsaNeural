@@ -1031,8 +1031,8 @@ public class SettingsHandler
             {
                 Title = "Admin Mode",
                 Content = enable
-                    ? "Admin Mode enabled. Restart RHI for it to take effect."
-                    : "Admin Mode disabled. RHI will launch normally on next start.",
+                    ? "Admin Mode enabled. Restart SalsaNeural for it to take effect."
+                    : "Admin Mode disabled. SalsaNeural will launch normally on next start.",
                 CloseButtonText = "OK",
                 XamlRoot = _window.Content.XamlRoot,
                 RequestedTheme = ElementTheme.Dark,
@@ -1176,11 +1176,11 @@ public class SettingsHandler
 
             // Write to temp file and put on clipboard as a zip (same pattern as Copy Logs)
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            var jsonPath  = Path.Combine(Path.GetTempPath(), $"RHI_GameData_{timestamp}.json");
+            var jsonPath  = Path.Combine(Path.GetTempPath(), $"SalsaNeural_GameData_{timestamp}.json");
             File.WriteAllText(jsonPath, json, System.Text.Encoding.UTF8);
 
             // Zip it
-            var zipPath = Path.Combine(Path.GetTempPath(), $"RHI_GameData_{timestamp}.zip");
+            var zipPath = Path.Combine(Path.GetTempPath(), $"SalsaNeural_GameData_{timestamp}.zip");
             if (File.Exists(zipPath)) File.Delete(zipPath);
             using (var archive = System.IO.Compression.ZipFile.Open(zipPath, System.IO.Compression.ZipArchiveMode.Create))
             {
@@ -1349,7 +1349,7 @@ public class SettingsHandler
             }
 
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            var archivePath = Path.Combine(Path.GetTempPath(), $"RHI_Logs_{timestamp}.zip");
+            var archivePath = Path.Combine(Path.GetTempPath(), $"SalsaNeural_Logs_{timestamp}.zip");
 
             // Delete if exists from a previous attempt
             if (File.Exists(archivePath)) File.Delete(archivePath);
@@ -2867,7 +2867,7 @@ public class SettingsHandler
             using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(5));
             var req = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, "https://api.github.com/user");
             req.Headers.TryAddWithoutValidation("Authorization", $"Bearer {pat}");
-            req.Headers.TryAddWithoutValidation("User-Agent", "RHI");
+            req.Headers.TryAddWithoutValidation("User-Agent", "SalsaNeural");
             using var resp = await http.SendAsync(req, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cts.Token);
             valid = resp.IsSuccessStatusCode;
             if (valid)

@@ -28,7 +28,7 @@ public sealed partial class SetupWindow : Window
     {
         InitializeComponent();
 
-        Title = "RHI Setup";
+        Title = "SalsaNeural Setup";
 
         // Size and position — scale by display DPI so window is correct at any Windows scaling setting
         var hwndForDpi = WindowNative.GetWindowHandle(this);
@@ -118,14 +118,14 @@ public sealed partial class SetupWindow : Window
 
         // ── Description ──
         const string description =
-            "RHI can manage ReShade across all your games automatically. Here's what that includes:\n\n" +
+            "SalsaNeural can manage ReShade across all your games automatically. Here's what that includes:\n\n" +
             "  - Installs and updates ReShade for each game with one click\n" +
             "  - Keeps the correct DLL name per game based on what the game needs\n" +
             "  - Manages shader packs globally - install once, deployed to every game automatically\n" +
             "  - Backs up any shaders already in your game folders before taking over\n" +
             "  - Keeps ReShade in sync when you install RenoDX, OptiScaler, or other components\n\n" +
             "If you already have a custom ReShade setup - specific shader collections, hand-tuned configs, " +
-            "or a version you prefer - choose \"I'll manage it myself\" and RHI will leave ReShade completely alone.";
+            "or a version you prefer - choose \"I'll manage it myself\" and SalsaNeural will leave ReShade completely alone.";
 
         root.Children.Add(new TextBlock
         {

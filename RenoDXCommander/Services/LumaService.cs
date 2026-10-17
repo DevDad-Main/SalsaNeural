@@ -1041,7 +1041,7 @@ public class LumaService : ILumaService
         try
         {
             var request = new HttpRequestMessage(HttpMethod.Get, LumaReleasesListApi);
-            request.Headers.UserAgent.ParseAdd("RHI");
+            request.Headers.UserAgent.ParseAdd("SalsaNeural");
             request.Headers.Accept.ParseAdd("application/vnd.github+json");
             var response = await _http.SendAsync(request).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
@@ -1196,7 +1196,7 @@ public class LumaService : ILumaService
         try
         {
             var request = new HttpRequestMessage(HttpMethod.Get, LumaReleasesApi);
-            request.Headers.UserAgent.ParseAdd("RHI");
+            request.Headers.UserAgent.ParseAdd("SalsaNeural");
             request.Headers.Accept.ParseAdd("application/vnd.github+json");
             var response = await _http.SendAsync(request).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
@@ -1367,7 +1367,7 @@ public class LumaService : ILumaService
         else if (archivePath.EndsWith(".7z", StringComparison.OrdinalIgnoreCase))
         {
             // Extract to temp, then copy with prefix stripping
-            var tempDir = Path.Combine(Path.GetTempPath(), "RHI_Luma_" + Guid.NewGuid().ToString("N")[..8]);
+            var tempDir = Path.Combine(Path.GetTempPath(), "SalsaNeural_Luma_" + Guid.NewGuid().ToString("N")[..8]);
             try
             {
                 Directory.CreateDirectory(tempDir);

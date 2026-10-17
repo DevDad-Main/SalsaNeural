@@ -37,7 +37,7 @@ public sealed partial class MainWindow
                       "Try a normal Refresh first — it handles most issues without the full rescan. " +
                       "Use Full Refresh as a last resort if games are missing, paths have changed, DLSS has been added to a game, or the DLSS section is missing from a game card.\n\n" +
                       "The next couple of restarts may take a few seconds longer while caches are rebuilt.\n\n" +
-                      "Do not close RHI while the refresh is in progress — closing early will result in a missing library and the scan will need to be repeated.",
+                      "Do not close SalsaNeural while the refresh is in progress — closing early will result in a missing library and the scan will need to be repeated.",
             PrimaryButtonText = "Continue",
             CloseButtonText = "Cancel",
             DefaultButton = ContentDialogButton.Primary,

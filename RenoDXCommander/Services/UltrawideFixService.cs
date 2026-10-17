@@ -375,7 +375,7 @@ public partial class UltrawideFixService : IUltrawideFixService
             else
             {
                 using var anonClient = new HttpClient();
-                anonClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "RHI");
+                anonClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "SalsaNeural");
                 content = await anonClient.GetStringAsync(url).ConfigureAwait(false);
             }
             CrashReporter.Log($"[UltrawideFixService] {label} fetched from network");

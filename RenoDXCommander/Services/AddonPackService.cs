@@ -52,7 +52,7 @@ public class AddonPackService : IAddonPackService
     private static readonly AddonEntry Renodx5Entry = new(
         SectionId: "renodx-dlss5",
         PackageName: "DLSS5 Tool",
-        PackageDescription: "Enables DLSS Neural Rendering in any DLSS-compatible game. Supports RTX 20, 30, 40 and 50 Series GPUs. RHI automatically deploys nvngx_dlssnr.dll to the game folder alongside this addon.",
+        PackageDescription: "Enables DLSS Neural Rendering in any DLSS-compatible game. Supports RTX 20, 30, 40 and 50 Series GPUs. SalsaNeural automatically deploys nvngx_dlssnr.dll to the game folder alongside this addon.",
         DownloadUrl: null,
         DownloadUrl32: null,
         DownloadUrl64: null,
@@ -1269,7 +1269,7 @@ public class AddonPackService : IAddonPackService
             var effectiveUrl = releaseApiUrl;
 
             using var req = new HttpRequestMessage(HttpMethod.Get, effectiveUrl);
-            req.Headers.Add("User-Agent", "RHI");
+            req.Headers.Add("User-Agent", "SalsaNeural");
             req.Headers.Add("Accept", "application/vnd.github+json");
             var token = DevUnlockService.GitHubApiToken;
             if (!string.IsNullOrEmpty(token))
@@ -1377,7 +1377,7 @@ public class AddonPackService : IAddonPackService
 
             // Fall back to HEAD request for ETag/Last-Modified/Content-Length
             using var req = new HttpRequestMessage(HttpMethod.Head, url);
-            req.Headers.Add("User-Agent", "RHI");
+            req.Headers.Add("User-Agent", "SalsaNeural");
             using var resp = await _http.SendAsync(req);
             if (!resp.IsSuccessStatusCode) return "unknown";
             // Prefer Content-Length (most reliable for binary files)

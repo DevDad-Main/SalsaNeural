@@ -47,7 +47,7 @@ public class GitHubETagCache
 
         // Build request
         var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.UserAgent.Add(new ProductInfoHeaderValue("RHI", "1.0"));
+        request.Headers.UserAgent.Add(new ProductInfoHeaderValue("SalsaNeural", "1.0"));
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
 
         // Add GitHub API token if available (raises rate limit from 60 to 5000 req/hour)

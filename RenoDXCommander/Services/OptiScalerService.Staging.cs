@@ -146,7 +146,7 @@ public partial class OptiScalerService
                 }
 
                 // Extract to a temp directory first, then move contents to staging
-                var tempExtractDir = Path.Combine(Path.GetTempPath(), $"RHI_optiscaler_{Guid.NewGuid():N}");
+                var tempExtractDir = Path.Combine(Path.GetTempPath(), $"SalsaNeural_optiscaler_{Guid.NewGuid():N}");
                 Directory.CreateDirectory(tempExtractDir);
 
                 try
@@ -681,7 +681,7 @@ public partial class OptiScalerService
             try
             {
                 using var req = new HttpRequestMessage(HttpMethod.Get, DlssManifestUrl);
-                req.Headers.Add("User-Agent", "RHI");
+                req.Headers.Add("User-Agent", "SalsaNeural");
                 using var resp = await _http.SendAsync(req);
                 if (!resp.IsSuccessStatusCode)
                 {
@@ -1333,7 +1333,7 @@ public partial class OptiScalerService
                 return;
             }
 
-            var tempExtractDir = Path.Combine(Path.GetTempPath(), $"RHI_opti_nightly_{buildDate}_{Guid.NewGuid():N}");
+            var tempExtractDir = Path.Combine(Path.GetTempPath(), $"SalsaNeural_opti_nightly_{buildDate}_{Guid.NewGuid():N}");
             Directory.CreateDirectory(tempExtractDir);
 
             try
@@ -1532,7 +1532,7 @@ public partial class OptiScalerService
             progress?.Report(("Extracting OptiScaler DLSS NR...", 75));
             try
             {
-                var tempExtractDir = Path.Combine(Path.GetTempPath(), $"RHI_optiscaler_dlssnr_{Guid.NewGuid():N}");
+                var tempExtractDir = Path.Combine(Path.GetTempPath(), $"SalsaNeural_optiscaler_dlssnr_{Guid.NewGuid():N}");
                 Directory.CreateDirectory(tempExtractDir);
 
                 try
@@ -1757,7 +1757,7 @@ public partial class OptiScalerService
 
             try
             {
-                var tempExtractDir = Path.Combine(Path.GetTempPath(), $"RHI_optiscaler_f5_{Guid.NewGuid():N}");
+                var tempExtractDir = Path.Combine(Path.GetTempPath(), $"SalsaNeural_optiscaler_f5_{Guid.NewGuid():N}");
                 Directory.CreateDirectory(tempExtractDir);
                 try
                 {

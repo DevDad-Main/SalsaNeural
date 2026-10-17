@@ -133,7 +133,7 @@ public class DlssNrCostScalerService
             {
                 // Bypass ETag cache — make a direct request to get current data
                 var req = new HttpRequestMessage(HttpMethod.Get, GitHubApiUrl);
-                req.Headers.Add("User-Agent", "RHI");
+                req.Headers.Add("User-Agent", "SalsaNeural");
                 var resp = await _http.SendAsync(req).ConfigureAwait(false);
                 if (!resp.IsSuccessStatusCode)
                 {

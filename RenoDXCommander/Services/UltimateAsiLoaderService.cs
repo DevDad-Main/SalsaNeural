@@ -404,7 +404,7 @@ public class UltimateAsiLoaderService
         try
         {
             using var req = new HttpRequestMessage(HttpMethod.Get, GitHubApiUrl);
-            req.Headers.Add("User-Agent", "RHI");
+            req.Headers.Add("User-Agent", "SalsaNeural");
             req.Headers.Add("Accept", "application/vnd.github+json");
             using var resp = await _http.SendAsync(req).ConfigureAwait(false);
             if (!resp.IsSuccessStatusCode)

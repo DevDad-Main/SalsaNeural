@@ -348,7 +348,7 @@ public class DlssEnablerService
         try
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, GitHubApiUrl);
-            request.Headers.Add("User-Agent", "RHI");
+            request.Headers.Add("User-Agent", "SalsaNeural");
             request.Headers.Add("Accept", "application/vnd.github+json");
 
             using var response = await _http.SendAsync(request).ConfigureAwait(false);

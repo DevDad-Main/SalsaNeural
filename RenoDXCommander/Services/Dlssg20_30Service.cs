@@ -261,7 +261,7 @@ public class Dlssg20_30Service
         try
         {
             using var req = new HttpRequestMessage(HttpMethod.Get, ReadmeApiUrl);
-            req.Headers.Add("User-Agent", "RHI");
+            req.Headers.Add("User-Agent", "SalsaNeural");
             req.Headers.Add("Accept", "application/vnd.github+json");
             using var resp = await _http.SendAsync(req).ConfigureAwait(false);
             if (resp.IsSuccessStatusCode)
@@ -297,7 +297,7 @@ public class Dlssg20_30Service
         try
         {
             using var req = new HttpRequestMessage(HttpMethod.Get, CommitsApiUrl);
-            req.Headers.Add("User-Agent", "RHI");
+            req.Headers.Add("User-Agent", "SalsaNeural");
             req.Headers.Add("Accept", "application/vnd.github+json");
             using var resp = await _http.SendAsync(req).ConfigureAwait(false);
             if (!resp.IsSuccessStatusCode)

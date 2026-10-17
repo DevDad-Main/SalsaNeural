@@ -28,7 +28,7 @@ public partial class DialogService
                 FontSize     = 13,
                 Text         = $"A dxgi.dll file was found in:\n{card.InstallPath}\n\n" +
                                $"File size: {sizeKB:N0} KB\n\n" +
-                               "RHI cannot identify this file as ReShade or Display Commander. " +
+                               "SalsaNeural cannot identify this file as ReShade or Display Commander. " +
                                "It may belong to another mod (e.g. DXVK, Special K, ENB).\n\n" +
                                "Overwriting it may break the existing mod. Do you want to proceed?",
             },
@@ -58,7 +58,7 @@ public partial class DialogService
                 FontSize     = 13,
                 Text         = $"A winmm.dll file was found in:\n{card.InstallPath}\n\n" +
                                $"File size: {sizeKB:N0} KB\n\n" +
-                               "RHI cannot identify this file as Display Commander. " +
+                               "SalsaNeural cannot identify this file as Display Commander. " +
                                "It may belong to another mod or DLL injector.\n\n" +
                                "Overwriting it may break the existing mod. Do you want to proceed?",
             },

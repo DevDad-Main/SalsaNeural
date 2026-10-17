@@ -1375,9 +1375,13 @@ public sealed partial class MainWindow
         try
         {
             const string keyPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-            const string valueName = "RHI";
+            const string valueName = "SalsaNeural";
+            const string legacyValueName = "RHI"; // pre-fork entry from upstream RHI
             using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(keyPath, writable: true);
             if (key == null) return;
+
+            // Drop the legacy upstream autostart entry if present
+            key.DeleteValue(legacyValueName, throwOnMissingValue: false);
 
             if (enabled)
             {
@@ -1481,7 +1485,7 @@ public sealed partial class MainWindow
             Title   = "Output Colour Settings",
             Content = ok
                 ? $"Applied to {display.Name}: {depthLabel}, {rangeLabel}."
-                : $"Failed to apply colour settings to {display.Name}. Check that RHI is running as administrator.",
+                : $"Failed to apply colour settings to {display.Name}. Check that SalsaNeural is running as administrator.",
             CloseButtonText = "OK",
             XamlRoot        = Content.XamlRoot,
             RequestedTheme  = ElementTheme.Dark,
@@ -1636,7 +1640,7 @@ public sealed partial class MainWindow
 
         content.Children.Add(new TextBlock
         {
-            Text = "Select a saved state from the dropdown and click Apply. RHI writes the registry values directly and triggers a display reset (~15 seconds of blackout while the driver reinitializes).",
+            Text = "Select a saved state from the dropdown and click Apply. SalsaNeural writes the registry values directly and triggers a display reset (~15 seconds of blackout while the driver reinitializes).",
             FontSize = 12,
             TextWrapping = TextWrapping.Wrap,
             Foreground = UIFactory.Brush(ResourceKeys.TextSecondaryBrush),

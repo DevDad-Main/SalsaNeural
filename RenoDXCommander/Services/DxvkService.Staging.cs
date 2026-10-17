@@ -551,7 +551,7 @@ public partial class DxvkService
     /// </summary>
     private async Task<bool> ExtractZipToStagingAsync(string zipPath)
     {
-        var tempExtractDir = Path.Combine(Path.GetTempPath(), "RHI_dxvk_extract");
+        var tempExtractDir = Path.Combine(Path.GetTempPath(), "SalsaNeural_dxvk_extract");
         try { if (Directory.Exists(tempExtractDir)) Directory.Delete(tempExtractDir, true); } catch { }
 
         try
@@ -596,7 +596,7 @@ public partial class DxvkService
     /// </summary>
     private async Task<bool> ExtractTarGzToStagingAsync(string tarGzPath)
     {
-        var tempExtractDir = Path.Combine(Path.GetTempPath(), "RHI_dxvk_extract");
+        var tempExtractDir = Path.Combine(Path.GetTempPath(), "SalsaNeural_dxvk_extract");
         try { if (Directory.Exists(tempExtractDir)) Directory.Delete(tempExtractDir, true); } catch { }
 
         try
@@ -619,7 +619,7 @@ public partial class DxvkService
             }
 
             // Pass 2: extract .tar → directory tree
-            var tarExtractDir = Path.Combine(Path.GetTempPath(), "RHI_dxvk_tar_extract");
+            var tarExtractDir = Path.Combine(Path.GetTempPath(), "SalsaNeural_dxvk_tar_extract");
             Directory.CreateDirectory(tarExtractDir);
 
             try

@@ -33,7 +33,7 @@ public partial class DragDropHandler
             var errDialog = new ContentDialog
             {
                 Title = "7-Zip Not Found",
-                Content = "Cannot extract archive — 7-Zip was not found. Please reinstall RDXC.",
+                Content = "Cannot extract archive — 7-Zip was not found. Please reinstall SalsaNeural.",
                 CloseButtonText = "OK",
                 XamlRoot = _window.Content.XamlRoot,
                 RequestedTheme = ElementTheme.Dark,
@@ -43,7 +43,7 @@ public partial class DragDropHandler
         }
 
         // Extract entire archive to a temp directory
-        var tempDir = Path.Combine(Path.GetTempPath(), $"RHI_archive_{Guid.NewGuid():N}");
+        var tempDir = Path.Combine(Path.GetTempPath(), $"SalsaNeural_archive_{Guid.NewGuid():N}");
         Directory.CreateDirectory(tempDir);
 
         try

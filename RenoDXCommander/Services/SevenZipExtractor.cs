@@ -77,7 +77,7 @@ public class ReShadeExtractor : ISevenZipExtractor
         try
         {
             // Extract to a temp directory, then move the target file
-            var tempDir = Path.Combine(Path.GetTempPath(), $"RHI_reshade_{Guid.NewGuid():N}");
+            var tempDir = Path.Combine(Path.GetTempPath(), $"SalsaNeural_reshade_{Guid.NewGuid():N}");
             Directory.CreateDirectory(tempDir);
 
             try
