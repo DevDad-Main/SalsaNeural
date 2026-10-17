@@ -508,7 +508,7 @@ public sealed partial class MainWindow
             var panel = new StackPanel { Spacing = 8 };
             panel.Children.Add(new TextBlock
             {
-                Text = "This toggles the engine version to Unreal Engine 5.0–5.6, making this game eligible for the DOF Fix addon.\n\nUse this when RHI cannot detect the UE version automatically (e.g. Game Pass games).",
+                Text = "This toggles the engine version to Unreal Engine 5.0–5.6, making this game eligible for the DOF Fix addon.\n\nUse this when SalsaNeural cannot detect the UE version automatically (e.g. Game Pass games).",
                 TextWrapping = Microsoft.UI.Xaml.TextWrapping.Wrap,
                 FontSize = 12,
             });
@@ -1077,7 +1077,7 @@ public sealed partial class MainWindow
                 var panel = new StackPanel { Spacing = 8 };
                 panel.Children.Add(new TextBlock
                 {
-                    Text = $"Remove {card.GameName} from RHI?",
+                    Text = $"Remove {card.GameName} from SalsaNeural?",
                     FontSize = 13,
                     FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
                     Foreground = UIFactory.Brush(ResourceKeys.TextPrimaryBrush),
@@ -1092,7 +1092,7 @@ public sealed partial class MainWindow
 
                 var uninstallCheck = new CheckBox
                 {
-                    Content = "Also uninstall all RHI-managed components from game folder",
+                    Content = "Also uninstall all SalsaNeural-managed components from game folder",
                     FontSize = 12,
                     IsChecked = false,
                 };
@@ -1119,7 +1119,7 @@ public sealed partial class MainWindow
                     Title = "Remove Game",
                     Content = new TextBlock
                     {
-                        Text = $"Remove {card.GameName} from RHI?",
+                        Text = $"Remove {card.GameName} from SalsaNeural?",
                         FontSize = 12,
                         TextWrapping = Microsoft.UI.Xaml.TextWrapping.Wrap,
                     },

@@ -382,7 +382,7 @@ public sealed partial class MainWindow
 
         var intro = new TextBlock
         {
-            Text = "These are the people who make the mods RHI manages. If you enjoy their work, consider supporting them.",
+            Text = "These are the people who make the mods SalsaNeural manages. If you enjoy their work, consider supporting them.",
             FontSize = 12,
             Foreground = UIFactory.Brush(ResourceKeys.TextSecondaryBrush),
             TextWrapping = TextWrapping.Wrap,

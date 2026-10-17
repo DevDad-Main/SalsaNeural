@@ -28,7 +28,7 @@ public sealed partial class MainWindow
             {
                 var dlg = new ContentDialog
                 {
-                    Title = "RHI is up to date",
+                    Title = "SalsaNeural is up to date",
                     Content = $"You're running v{Services.CrashReporter.AppVersion} — no updates available.",
                     CloseButtonText = "OK",
                     XamlRoot = Content.XamlRoot,
@@ -735,7 +735,7 @@ public sealed partial class MainWindow
         bool isAdmin = VulkanLayerService.IsRunningAsAdmin();
         var warningText = "This will overwrite your current NVIDIA driver profile settings with the saved backup. This cannot be undone.";
         if (!isAdmin)
-            warningText += "\n\nYou are not running as admin. Settings that require elevated privileges (e.g. ReBAR) will not be restored. Run RHI as admin to import all settings.";
+            warningText += "\n\nYou are not running as admin. Settings that require elevated privileges (e.g. ReBAR) will not be restored. Import will skip settings that require administrator privileges (e.g. ReBAR) — they are unavailable in SalsaNeural.";
 
         var confirmResult = await DialogService.ShowSafeAsync(new ContentDialog
         {

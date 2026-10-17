@@ -242,7 +242,7 @@ public partial class MainViewModel
             if (ShowVulkanAdminRequiredDialog != null)
                 await ShowVulkanAdminRequiredDialog();
             else
-                card.RsActionMessage = "⚠ Administrator privileges are required for Vulkan layer installation. Restart RHI as admin.";
+                card.RsActionMessage = "⚠ Administrator privileges are required for Vulkan layer installation. Unavailable in SalsaNeural (no administrator privileges).";
             return;
         }
 
@@ -328,7 +328,7 @@ public partial class MainViewModel
             if (ShowVulkanAdminRequiredDialog != null)
                 await ShowVulkanAdminRequiredDialog();
             else
-                card.RsActionMessage = "⚠ Administrator privileges are required for GAC symlink installation. Restart RHI as admin.";
+                card.RsActionMessage = "⚠ Administrator privileges are required for GAC symlink installation. Unavailable in SalsaNeural (no administrator privileges).";
             return;
         }
 

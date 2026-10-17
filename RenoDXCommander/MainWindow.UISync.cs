@@ -55,7 +55,7 @@ public sealed partial class MainWindow
                         // Show one-line notice in status bar if this session was auto-restarted after a freeze
                         if (ViewModel.WasAutoRestarted)
                         {
-                            var msg = "⚠ RHI restarted after a UI freeze — check Settings → session log for details";
+                            var msg = "⚠ SalsaNeural restarted after a UI freeze — check Settings → session log for details";
                             // Defer slightly so StatusText updates that fire immediately after loading
                             // don't overwrite the notice before the user sees it.
                             _ = System.Threading.Tasks.Task.Delay(500).ContinueWith(_ =>

@@ -957,7 +957,7 @@ public partial class DetailPanelBuilder
             if (isTaken)
                 contentRow.Children.Add(MakeBadge("In use", "#2A1818", "#CC6666", "#5A2828"));
             if (isRhiOwned)
-                contentRow.Children.Add(MakeBadge("Used by RHI", "#2A1818", "#CC6666", "#5A2828"));
+                contentRow.Children.Add(MakeBadge("Used by SalsaNeural", "#2A1818", "#CC6666", "#5A2828"));
             if (isRhiConflict && !isRhiOwned)
                 contentRow.Children.Add(MakeBadge("May conflict with ReShade/OS", "#2A1A10", "#CC9955", "#5A3A18"));
             if (isCurrent)
@@ -1343,7 +1343,7 @@ public partial class DetailPanelBuilder
             if (isRecommended)
                 contentRow.Children.Add(MakeBadge("Recommended", "#1A3A20", "#6AE87A", "#2A5A30"));
             if (isRhiOwned)
-                contentRow.Children.Add(MakeBadge("Used by RHI", "#2A1818", "#CC6666", "#5A2828"));
+                contentRow.Children.Add(MakeBadge("Used by SalsaNeural", "#2A1818", "#CC6666", "#5A2828"));
             if (isCurrent)
                 contentRow.Children.Add(MakeBadge("Current", "#182840", "#7AACDD", "#2A4468"));
 
@@ -1891,7 +1891,7 @@ public partial class DetailPanelBuilder
             if (isRecommended)
                 contentRow.Children.Add(MakeBadge("Recommended", "#1A3A20", "#6AE87A", "#2A5A30"));
             if (isRhiOwned)
-                contentRow.Children.Add(MakeBadge("Used by RHI", "#2A1818", "#CC6666", "#5A2828"));
+                contentRow.Children.Add(MakeBadge("Used by SalsaNeural", "#2A1818", "#CC6666", "#5A2828"));
             else if (isDxgiConflict)
                 contentRow.Children.Add(MakeBadge("May conflict with ReShade/OS", "#2A1A10", "#CC9955", "#5A3A18"));
             if (isCurrent)
@@ -2008,7 +2008,7 @@ public partial class DetailPanelBuilder
             if (isRecommended)
                 contentRow.Children.Add(MakeBadge("Recommended", "#1A3A20", "#6AE87A", "#2A5A30"));
             if (isRhiOwned)
-                contentRow.Children.Add(MakeBadge("Used by RHI", "#2A1818", "#CC6666", "#5A2828"));
+                contentRow.Children.Add(MakeBadge("Used by SalsaNeural", "#2A1818", "#CC6666", "#5A2828"));
             else if (isDxgiConflict)
                 contentRow.Children.Add(MakeBadge("May conflict with ReShade/OS", "#2A1A10", "#CC9955", "#5A3A18"));
             if (isCurrent)
@@ -2770,7 +2770,7 @@ public partial class DetailPanelBuilder
         var pickerDialog = new ContentDialog
         {
             Title = "Choose RTX Encore DLL name",
-            Content = new StackPanel { Spacing = 8, Children = { new TextBlock { Text = "Select the filename for RTX Encore. Names in use by RHI components are disabled. Amber names already have a file on disk — RHI will back it up and restore on uninstall.", FontSize = 11, Foreground = UIFactory.Brush(ResourceKeys.TextTertiaryBrush), TextWrapping = TextWrapping.Wrap }, scrollViewer } },
+            Content = new StackPanel { Spacing = 8, Children = { new TextBlock { Text = "Select the filename for RTX Encore. Names in use by SalsaNeural components are disabled. Amber names already have a file on disk — SalsaNeural will back it up and restore on uninstall.", FontSize = 11, Foreground = UIFactory.Brush(ResourceKeys.TextTertiaryBrush), TextWrapping = TextWrapping.Wrap }, scrollViewer } },
             CloseButtonText = "Cancel", XamlRoot = _window.Content.XamlRoot, RequestedTheme = ElementTheme.Dark,
         };
         await DialogService.ShowSafeAsync(pickerDialog);

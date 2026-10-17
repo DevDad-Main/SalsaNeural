@@ -1130,7 +1130,7 @@ public partial class DetailPanelBuilder
 
             var desc = new TextBlock
             {
-                Text = "When On, RHI will automatically configure ReShade when installing ShortFuse DLSS Tool:\n" +
+                Text = "When On, SalsaNeural will automatically configure ReShade when installing ShortFuse DLSS Tool:\n" +
                        "• Rename ReShade to Reshade64.asi\n" +
                        "• Install ASI Loader (winmm → version → dinput8)\n" +
                        "• Write HookStreamline=1 and HookDirectX=1 to reshade.ini\n\n" +

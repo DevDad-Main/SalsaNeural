@@ -89,7 +89,7 @@ public partial class DialogService
                         TextWrapping = TextWrapping.Wrap,
                         Foreground   = Brush(ResourceKeys.TextSecondaryBrush),
                         FontSize     = 14,
-                        Text         = $"A new version of RHI is available!\n\n" +
+                        Text         = $"A new version of SalsaNeural is available!\n\n" +
                                        $"Installed:  v{updateInfo.CurrentVersion}\n" +
                                        $"Available:  v{updateInfo.DisplayVersion ?? updateInfo.RemoteVersion.ToString()}\n\n" +
                                        "Would you like to update now?",
@@ -314,7 +314,7 @@ public partial class DialogService
     {
         var dlg = new ContentDialog
         {
-            Title = "📢 Message from RHI",
+            Title = "📢 Message from SalsaNeural",
             Content = new ScrollViewer
             {
                 Content = new TextBlock

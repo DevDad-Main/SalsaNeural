@@ -134,7 +134,7 @@ public static class ShortcutService
                 }
                 catch (Exception ex)
                 {
-                    CrashReporter.Log($"[ShortcutService] Xbox icon fetch failed for '{gameName}' — {ex.Message}. Using RHI icon.");
+                    CrashReporter.Log($"[ShortcutService] Xbox icon fetch failed for '{gameName}' — {ex.Message}. Using SalsaNeural icon.");
                 }
 
                 if (downloaded)

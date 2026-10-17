@@ -1007,7 +1007,7 @@ public class SettingsHandler
             await DialogService.ShowSafeAsync(new ContentDialog
             {
                 Title = "Admin Mode",
-                Content = "UAC is disabled on this system — RHI always runs as administrator.",
+                Content = "UAC is disabled on this system — SalsaNeural never runs as administrator.",
                 CloseButtonText = "OK",
                 XamlRoot = _window.Content.XamlRoot,
                 RequestedTheme = ElementTheme.Dark,
@@ -2646,7 +2646,7 @@ public class SettingsHandler
                 {
                     Title = "NXM Protocol Handler",
                     Content = "Another application (e.g. Vortex or MO2) is already registered as the nxm:// handler. Registering RHI will replace it. Continue?",
-                    PrimaryButtonText = "Register RHI",
+                    PrimaryButtonText = "Register SalsaNeural",
                     CloseButtonText = "Cancel",
                     XamlRoot = _window.Content.XamlRoot,
                     RequestedTheme = Microsoft.UI.Xaml.ElementTheme.Dark,

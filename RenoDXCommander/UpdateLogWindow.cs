@@ -165,7 +165,7 @@ public sealed class UpdateLogWindow : Window
         {
             listPanel.Children.Add(new TextBlock
             {
-                Text       = "No component updates have been recorded yet.\n\nUpdates are captured whenever RHI downloads a new version of ReShade, RenoDX addons, shader packs, OptiScaler, Display Commander, or other components.",
+                Text       = "No component updates have been recorded yet.\n\nUpdates are captured whenever SalsaNeural downloads a new version of ReShade, RenoDX addons, shader packs, OptiScaler, Display Commander, or other components.",
                 FontSize   = 12,
                 Foreground = UIFactory.Brush(ResourceKeys.TextTertiaryBrush),
                 TextWrapping = TextWrapping.Wrap,

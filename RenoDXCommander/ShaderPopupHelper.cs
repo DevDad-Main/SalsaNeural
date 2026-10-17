@@ -1211,7 +1211,7 @@ public static class ShaderPopupHelper
 
                     if (result == null)
                     {
-                        importStatusLabel.Text       = "Invalid archive — not an RHI shader profile.";
+                        importStatusLabel.Text       = "Invalid archive — not a SalsaNeural shader profile.";
                         importStatusLabel.Foreground = Brush(ResourceKeys.AccentRedBrush);
                         importStatusLabel.Visibility = Visibility.Visible;
                     }
