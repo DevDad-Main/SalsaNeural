@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace RenoDXCommander.Services;
 
 /// <summary>
-/// Checks GitHub Releases for a newer version of RHI and downloads the installer if requested.
+/// Checks GitHub Releases for a newer version of SalsaNeural and applies it (installer or portable zip) if requested.
 /// </summary>
 public class UpdateService : IUpdateService
 {
@@ -19,23 +19,41 @@ public class UpdateService : IUpdateService
         _http = http;
         _etagCache = etagCache;
     }
-    // GitHub API endpoint for the latest release (new per-version tags like "RHI 1.6.7").
-    // This is the primary check — uses /releases/latest to find the newest release.
+    // GitHub API endpoint for the latest SalsaNeural release (tags like "v0.2.0").
+    // The updater ONLY ever consults this fork's own releases — never upstream RHI,
+    // so an update can never replace SalsaNeural with vanilla RHI.
     private const string LatestReleaseApiUrl =
-        "https://api.github.com/repos/RankFTW/RHI/releases/latest";
+        "https://api.github.com/repos/DevDad-Main/SalsaNeural/releases/latest";
 
-    // Fallback: legacy tag-based endpoints for older releases.
-    private const string ReleaseApiUrl =
-        "https://api.github.com/repos/RankFTW/RHI/releases/tags/RHI";
-    private const string LegacyReleaseApiUrl =
-        "https://api.github.com/repos/RankFTW/RenoDXChecker/releases/tags/RDXC";
+    // The asset filenames to look for when updating. Preference order is adjusted at
+    // runtime by install type (portable zip vs per-user installer) in FetchReleaseAsync.
+    private static readonly string[] InstallerFileNames = ["SalsaNeural-Setup.exe", "SalsaNeural-Portable.zip"];
+    private static readonly string[] PortableFileNames  = ["SalsaNeural-Portable.zip", "SalsaNeural-Setup.exe"];
 
-    // GitHub API endpoint for the "RDXC-BETA" release tag.
-    private const string BetaReleaseApiUrl =
-        "https://api.github.com/repos/RankFTW/RenoDXChecker/releases/tags/RDXC-BETA";
+    /// <summary>
+    /// True when the running EXE is NOT under %LOCALAPPDATA%\Programs — i.e. the user
+    /// launched from the portable zip. Portable installs prefer the zip asset so the
+    /// update replaces files in place; installed copies prefer the installer.
+    /// </summary>
+    internal static bool IsPortableInstall
+    {
+        get
+        {
+            try
+            {
+                var exe = Environment.ProcessPath;
+                if (string.IsNullOrEmpty(exe)) return true;
+                var programs = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Programs");
+                return !exe.StartsWith(programs, StringComparison.OrdinalIgnoreCase);
+            }
+            catch { return true; }
+        }
+    }
 
-    // The asset filenames to look for when updating (checked in order).
-    private static readonly string[] InstallerFileNames = ["RHI-Setup.exe", "RDXC-Setup.exe"];
+    private static string[] PreferredAssets =>
+        IsPortableInstall ? PortableFileNames : InstallerFileNames;
 
     /// <summary>
     /// Returns the current app version from the assembly metadata (set via .csproj AssemblyVersion).
@@ -51,54 +69,19 @@ public class UpdateService : IUpdateService
     /// </summary>
     public async Task<UpdateInfo?> CheckForUpdateAsync(bool betaOptIn = false)
     {
-        // SalsaNeural: never self-update from upstream RHI releases — that would
-        // replace the fork with vanilla RHI. Updates ship from our own repository.
-        if (NoAdminMode.DisableSelfUpdate)
-        {
-            CrashReporter.Log("[UpdateService.CheckForUpdateAsync] Self-update disabled in SalsaNeural");
-            return null;
-        }
+        // Beta channel is intentionally unused in SalsaNeural — stable releases only.
+        _ = betaOptIn;
 
         try
         {
-            // Always fetch the stable release — try /releases/latest first, then tag-based fallbacks
+            // Only ever check this fork's own releases (see LatestReleaseApiUrl).
             var stable = await FetchReleaseAsync(LatestReleaseApiUrl).ConfigureAwait(false);
-            if (stable == null)
-            {
-                CrashReporter.Log("[UpdateService.CheckForUpdateAsync] /releases/latest returned nothing, trying RHI tag...");
-                stable = await FetchReleaseAsync(ReleaseApiUrl).ConfigureAwait(false);
-            }
-            if (stable == null)
-            {
-                CrashReporter.Log("[UpdateService.CheckForUpdateAsync] RHI tag returned nothing, trying legacy RDXC...");
-                stable = await FetchReleaseAsync(LegacyReleaseApiUrl).ConfigureAwait(false);
-            }
 
-            // Fetch beta release only when opted in; failure is non-fatal
-            (RdxcVersion version, string downloadUrl)? beta = null;
-            if (betaOptIn)
-            {
-                try
-                {
-                    beta = await FetchReleaseAsync(BetaReleaseApiUrl).ConfigureAwait(false);
-                }
-                catch (Exception ex)
-                {
-                    CrashReporter.Log($"[UpdateService.CheckForUpdateAsync] Beta endpoint failed — {ex.Message}");
-                    // Continue with stable-only
-                }
-            }
-
-            // Build the current version as an RdxcVersion for the resolver
             var current = CurrentVersion;
-            var betaNum = current.Revision > 0 ? (int?)current.Revision : null;
-            var currentRdxc = new RdxcVersion(current.Major, current.Minor, current.Build, betaNum);
+            var currentRdxc = new RdxcVersion(current.Major, current.Minor, current.Build,
+                current.Revision > 0 ? (int?)current.Revision : null);
 
-            // Use VersionResolver to determine which update (if any) to offer
-            RdxcVersion? winner = VersionResolver.Resolve(
-                currentRdxc,
-                stable?.version,
-                beta?.version);
+            RdxcVersion? winner = VersionResolver.Resolve(currentRdxc, stable?.version, null);
 
             if (winner == null)
             {
@@ -106,12 +89,9 @@ public class UpdateService : IUpdateService
                 return null;
             }
 
-            // Determine the download URL from the winning source
-            string? winnerDownloadUrl = null;
-            if (stable.HasValue && winner.Value == stable.Value.version)
-                winnerDownloadUrl = stable.Value.downloadUrl;
-            else if (beta.HasValue && winner.Value == beta.Value.version)
-                winnerDownloadUrl = beta.Value.downloadUrl;
+            string? winnerDownloadUrl = stable.HasValue && winner.Value == stable.Value.version
+                ? stable.Value.downloadUrl
+                : null;
 
             if (string.IsNullOrEmpty(winnerDownloadUrl))
             {
@@ -119,14 +99,11 @@ public class UpdateService : IUpdateService
                 return null;
             }
 
-            var cmp = new Version(current.Major, current.Minor, current.Build);
-            var rmt = new Version(winner.Value.Major, winner.Value.Minor, winner.Value.Build);
-
             CrashReporter.Log($"[UpdateService.CheckForUpdateAsync] Update available {currentRdxc.ToDisplayString()} → {winner.Value.ToDisplayString()}");
             return new UpdateInfo
             {
-                CurrentVersion = cmp,
-                RemoteVersion  = rmt,
+                CurrentVersion = new Version(current.Major, current.Minor, current.Build),
+                RemoteVersion  = new Version(winner.Value.Major, winner.Value.Minor, winner.Value.Build),
                 DownloadUrl    = winnerDownloadUrl,
                 DisplayVersion = winner.Value.ToDisplayString(),
             };
@@ -145,7 +122,7 @@ public class UpdateService : IUpdateService
     /// </summary>
     private async Task<(RdxcVersion version, string downloadUrl)?> FetchReleaseAsync(string apiUrl)
     {
-        var json = await _etagCache.GetWithETagAsync(_http, apiUrl, $"RHI/{CurrentVersion}").ConfigureAwait(false);
+        var json = await _etagCache.GetWithETagAsync(_http, apiUrl, $"SalsaNeural/{CurrentVersion}").ConfigureAwait(false);
         if (json == null)
         {
             CrashReporter.Log($"[UpdateService.FetchReleaseAsync] GitHub API returned error for {apiUrl}");
@@ -166,16 +143,18 @@ public class UpdateService : IUpdateService
             return null;
         }
 
-        // Find the installer asset download URL (check RHI-Setup.exe first, then legacy RDXC)
+        // Find the download asset (portable installs prefer the zip, installed copies
+        // prefer the setup exe; the other asset remains a fallback).
         string? downloadUrl = null;
+        var preferred = PreferredAssets;
         if (root.TryGetProperty("assets", out var assets) && assets.ValueKind == JsonValueKind.Array)
         {
-            foreach (var installerName in InstallerFileNames)
+            foreach (var assetName in preferred)
             {
                 foreach (var asset in assets.EnumerateArray())
                 {
-                    var assetName = asset.TryGetProperty("name", out var n) ? n.GetString() : null;
-                    if (string.Equals(assetName, installerName, StringComparison.OrdinalIgnoreCase))
+                    var n = asset.TryGetProperty("name", out var nameProp) ? nameProp.GetString() : null;
+                    if (string.Equals(n, assetName, StringComparison.OrdinalIgnoreCase))
                     {
                         downloadUrl = asset.TryGetProperty("browser_download_url", out var url)
                             ? url.GetString() : null;
@@ -188,7 +167,7 @@ public class UpdateService : IUpdateService
 
         if (string.IsNullOrEmpty(downloadUrl))
         {
-            CrashReporter.Log($"[UpdateService.FetchReleaseAsync] Version {version.ToDisplayString()} found but no installer asset (tried {string.Join(", ", InstallerFileNames)})");
+            CrashReporter.Log($"[UpdateService.FetchReleaseAsync] Version {version.ToDisplayString()} found but no update asset (tried {string.Join(", ", preferred)})");
             return null;
         }
 
@@ -215,7 +194,7 @@ public class UpdateService : IUpdateService
             progress?.Report(("Downloading update...", 0));
 
             using var request = new HttpRequestMessage(HttpMethod.Get, downloadUrl);
-            request.Headers.UserAgent.Add(new ProductInfoHeaderValue("RHI", CurrentVersion.ToString()));
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue("SalsaNeural", CurrentVersion.ToString()));
 
             using var response = await _http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, token)
                 .ConfigureAwait(false);
@@ -224,7 +203,7 @@ public class UpdateService : IUpdateService
             var totalBytes = response.Content.Headers.ContentLength ?? -1;
             // Derive the installer filename from the download URL, falling back to RHI-Setup.exe
             var fileName = Path.GetFileName(new Uri(downloadUrl).LocalPath);
-            if (string.IsNullOrEmpty(fileName)) fileName = InstallerFileNames[0];
+            if (string.IsNullOrEmpty(fileName)) fileName = PreferredAssets[0];
             tempPath = Path.Combine(Path.GetTempPath(), fileName);
 
             await using var contentStream = await response.Content.ReadAsStreamAsync(token).ConfigureAwait(false);
@@ -267,16 +246,25 @@ public class UpdateService : IUpdateService
     }
 
     /// <summary>
-    /// Launches the downloaded installer and requests the app to close.
+    /// Applies a downloaded update and requests the app to close.
+    /// .exe assets are launched as the per-user installer; .zip assets (portable
+    /// installs) are replaced in place by a background script that waits for this
+    /// process to exit, extracts over the install directory, and relaunches.
     /// </summary>
-    public void LaunchInstallerAndExit(string installerPath, Action closeApp)
+    public void LaunchInstallerAndExit(string downloadedFilePath, Action closeApp)
     {
         try
         {
-            CrashReporter.Log($"[UpdateService.LaunchInstaller] Launching installer {installerPath}");
+            if (downloadedFilePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+            {
+                LaunchPortableUpdateScript(downloadedFilePath, closeApp);
+                return;
+            }
+
+            CrashReporter.Log($"[UpdateService.LaunchInstaller] Launching installer {downloadedFilePath}");
             Process.Start(new ProcessStartInfo
             {
-                FileName        = installerPath,
+                FileName        = downloadedFilePath,
                 UseShellExecute = true,
             });
 
@@ -285,23 +273,65 @@ public class UpdateService : IUpdateService
         }
         catch (Exception ex)
         {
-            CrashReporter.Log($"[UpdateService.LaunchInstaller] Failed to launch installer — {ex.Message}");
+            CrashReporter.Log($"[UpdateService.LaunchInstaller] Failed to launch update — {ex.Message}");
         }
     }
 
     /// <summary>
-    /// Parses a version string from a release tag or name.
-    /// Handles formats like: "1.2.2", "v1.2.2", "RHI-1.2.2", "RHI 1.2.2", "RHI v1.2.2" etc.
+    /// Spawns a hidden PowerShell script that waits for this process to exit, extracts
+    /// the portable zip over the current install directory, and relaunches the app.
     /// </summary>
-    private Version? ParseVersion(string? input)
+    private void LaunchPortableUpdateScript(string zipPath, Action closeApp)
     {
-        if (string.IsNullOrWhiteSpace(input)) return null;
+        var exeDir = Path.GetDirectoryName(Environment.ProcessPath)
+                     ?? AppContext.BaseDirectory;
+        var exeName = Path.GetFileName(Environment.ProcessPath ?? "SalsaNeural.exe");
+        var pid = Environment.ProcessId;
 
-        // Match the first occurrence of a version-like pattern (digits.digits.digits[.digits])
-        var match = Regex.Match(input, @"(\d+\.\d+\.\d+(?:\.\d+)?)");
-        if (!match.Success) return null;
+        var scriptPath = Path.Combine(Path.GetTempPath(), $"salsaneural_update_{pid}.ps1");
 
-        return Version.TryParse(match.Groups[1].Value, out var ver) ? ver : null;
+        // The zip contains a top-level SalsaNeural/ folder (or the exe may sit at its
+        // root) — locate the extracted directory that actually contains the EXE so a
+        // renamed local folder doesn't break the replace.
+        var script = $$"""
+            $ErrorActionPreference = 'Stop'
+            $zip      = '{{zipPath.Replace("'", "''")}}'
+            $target   = '{{exeDir.Replace("'", "''")}}'
+            $exeName  = '{{exeName.Replace("'", "''")}}'
+            $pid      = {{pid}}
+
+            # Wait for the running app to exit (files unlocked)
+            while (Get-Process -Id $pid -ErrorAction SilentlyContinue) { Start-Sleep -Milliseconds 750 }
+
+            $stage = Join-Path $env:TEMP ("salsaneural_stage_" + $pid)
+            try {
+                Remove-Item $stage -Recurse -Force -ErrorAction SilentlyContinue
+                Expand-Archive -LiteralPath $zip -DestinationPath $stage -Force
+
+                $exe = Get-ChildItem -Path $stage -Recurse -Filter $exeName -File | Select-Object -First 1
+                if (-not $exe) { throw "SalsaNeural.exe not found in update archive" }
+
+                Copy-Item -Path (Join-Path $exe.DirectoryName '*') -Destination $target -Recurse -Force
+            }
+            finally {
+                Remove-Item $stage -Recurse -Force -ErrorAction SilentlyContinue
+                Remove-Item -LiteralPath $zip -Force -ErrorAction SilentlyContinue
+            }
+
+            Start-Process -FilePath (Join-Path $target $exeName) -WorkingDirectory $target
+            """;
+
+        File.WriteAllText(scriptPath, script);
+        CrashReporter.Log($"[UpdateService.LaunchPortableUpdateScript] Spawning replace script {scriptPath} for {zipPath} → {exeDir}");
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "powershell.exe",
+            Arguments = $"-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"{scriptPath}\"",
+            UseShellExecute = true,
+        });
+
+        closeApp();
     }
 }
 

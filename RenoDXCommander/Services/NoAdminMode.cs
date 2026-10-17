@@ -12,12 +12,6 @@ public static class NoAdminMode
     /// <summary>Forced on. Every elevation path in the app is disabled.</summary>
     public static readonly bool Enabled = true;
 
-    /// <summary>
-    /// Self-update is disabled. Upstream RHI releases would overwrite this fork;
-    /// updates ship from the SalsaNeural repository instead.
-    /// </summary>
-    public static readonly bool DisableSelfUpdate = true;
-
     /// <summary>Elevation can never be attempted in this build.</summary>
     public static bool CanElevate => false;
 

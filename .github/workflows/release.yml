@@ -15,6 +15,18 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
+      - name: Stamp assembly version from tag
+        shell: pwsh
+        run: |
+          $ver = "${{ github.ref_name }}".TrimStart('v')
+          if ($ver -notmatch '^\d+\.\d+\.\d+$') { throw "Tag '$ver' is not a x.y.z version" }
+          $csproj = "RenoDXCommander/RenoDXCommander.csproj"
+          (Get-Content $csproj -Raw) `
+            -replace '<AssemblyVersion>.*</AssemblyVersion>', "<AssemblyVersion>$ver.0</AssemblyVersion>" `
+            -replace '<FileVersion>.*</FileVersion>', "<FileVersion>$ver.0</FileVersion>" |
+            Set-Content $csproj -NoNewline
+          Write-Host "Version stamped: $ver.0"
+
       - name: Set up .NET 8
         uses: actions/setup-dotnet@v4
         with:

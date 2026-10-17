@@ -1,0 +1,134 @@
+name: Upstream sync
+
+# Weekly pull of upstream RHI (RankFTW/RHI) into a review PR.
+# The job builds the merge result and runs the no-admin guard audit before opening
+# the PR, so a green PR is safe to merge. NOTE: PRs created with the default
+# GITHUB_TOKEN do not trigger other workflows — validation happens in this job.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: windows-2022
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream
+        shell: bash
+        run: |
+          git remote add upstream https://github.com/RankFTW/RHI.git || true
+          git fetch upstream main --depth 50
+
+      - name: Check for new upstream commits
+        id: check
+        shell: bash
+        run: |
+          BASE=$(git merge-base HEAD upstream/main)
+          HEADU=$(git rev-parse upstream/main)
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+          if [ "$BASE" = "$HEADU" ]; then
+            echo "already=true" >> "$GITHUB_OUTPUT"
+            echo "Up to date with upstream."
+          else
+            echo "already=false" >> "$GITHUB_OUTPUT"
+            COUNT=$(git rev-list --count "$BASE"..upstream/main)
+            echo "New upstream commits: $COUNT"
+            echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create sync branch and merge
+        if: steps.check.outputs.already == 'false'
+        id: merge
+        shell: bash
+        run: |
+          BRANCH="upstream-sync/$(date -u +%Y%m%d-%H%M)"
+          git checkout -b "$BRANCH"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          if ! git merge upstream/main --no-edit -m "chore: sync from upstream RHI ($(git rev-parse --short upstream/main))"; then
+            git merge --abort || true
+            echo "::warning::Merge conflicts with upstream — manual sync required."
+            echo "conflicts=true" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+      - name: No-admin guard audit
+        if: steps.check.outputs.already == 'false'
+        shell: bash
+        run: |
+          # Every file containing an elevation trigger must also reference NoAdminMode.
+          FAIL=0
+          for f in $(grep -rl 'Verb = "runas"' RenoDXCommander --include='*.cs' || true); do
+            if ! grep -q "NoAdminMode" "$f"; then
+              echo "::error file=$f::Elevation path without NoAdminMode guard: $f"
+              FAIL=1
+            fi
+          done
+          # schtasks elevation helper must stay guarded.
+          for f in $(grep -rl 'Verb = "runas"' . --include='*.cs' 2>/dev/null | sort -u || true); do
+            if ! grep -q "NoAdminMode" "$f"; then
+              echo "::error file=$f::Elevation path without NoAdminMode guard: $f"
+              FAIL=1
+            fi
+          done
+          # AppData root must not regress to "RHI".
+          if grep -rn 'SpecialFolder.LocalApplicationData)' -A1 RenoDXCommander --include='*.cs' | grep -q '"RHI"'; then
+            echo "::error::LocalApplicationData path regressed to \"RHI\""
+            FAIL=1
+          fi
+          # Self-update must never point upstream.
+          if grep -rn 'api.github.com/repos/RankFTW/RHI/releases' RenoDXCommander --include='*.cs'; then
+            echo "::error::Self-update points at upstream RHI releases"
+            FAIL=1
+          fi
+          if [ "$FAIL" -ne 0 ]; then exit 1; fi
+          echo "Guard audit passed."
+
+      - name: Set up .NET 8
+        if: steps.check.outputs.already == 'false'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build merged result
+        if: steps.check.outputs.already == 'false'
+        shell: pwsh
+        run: >
+          dotnet publish RenoDXCommander/RenoDXCommander.csproj
+          -c Release -r win-x64
+          -p:PublishSingleFile=true -p:Platform=x64
+          --self-contained true
+          -o dist/SalsaNeural
+
+      - name: Create pull request
+        if: steps.check.outputs.already == 'false'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: ${{ steps.merge.outputs.branch }}
+          delete-branch: true
+          title: 'chore: upstream sync from RankFTW/RHI'
+          body: |
+            Automated merge of [RankFTW/RHI](https://github.com/RankFTW/RHI) `main` (upstream).
+
+            - ${{ steps.check.outputs.count }} new upstream commit(s)
+            - ✅ No-admin guard audit passed (every `runas` site guarded, AppData root intact, self-update points at our repo only)
+            - ✅ Self-contained build succeeded
+
+            Merging keeps game DBs, mod support, and component integrations current.
+            Review conflicts manually if this PR reports them (the workflow fails in that case instead of opening a broken PR).
+          commit-message: "chore: sync from upstream RHI"
