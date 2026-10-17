@@ -185,9 +185,10 @@
 
   <!-- ClrMD for freeze diagnostics — loaded dynamically at runtime via Assembly.LoadFrom.
        Not a PackageReference (that crashes WinAppSDK XAML compiler on publish).
-       Copied to the output directory as a loose file alongside the EXE. -->
+       Copied to the output directory as a loose file alongside the EXE when present in the
+       local NuGet cache; skipped on CI machines where the package is not pre-populated. -->
   <ItemGroup>
-    <None Include="$(UserProfile)\.nuget\packages\microsoft.diagnostics.runtime\3.1.512801\lib\net6.0\Microsoft.Diagnostics.Runtime.dll" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" Link="Microsoft.Diagnostics.Runtime.dll" />
+    <None Include="$(UserProfile)\.nuget\packages\microsoft.diagnostics.runtime\3.1.512801\lib\net6.0\Microsoft.Diagnostics.Runtime.dll" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" Link="Microsoft.Diagnostics.Runtime.dll" Condition="Exists('$(UserProfile)\.nuget\packages\microsoft.diagnostics.runtime\3.1.512801\lib\net6.0\Microsoft.Diagnostics.Runtime.dll')" />
   </ItemGroup>
 
 
