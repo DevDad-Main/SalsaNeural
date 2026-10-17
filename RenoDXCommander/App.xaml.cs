@@ -241,7 +241,7 @@ public partial class App : Application
         _startMinimized = startMinimized;
 
         // ── Admin Mode: disabled in SalsaNeural — never relaunch via scheduled task ──
-        if (!Services.NoAdminMode.Enabled && !IsRunningAsAdmin() && await IsAdminTaskRegisteredAsync())
+        if (!NoAdminMode.Enabled && !IsRunningAsAdmin() && await IsAdminTaskRegisteredAsync())
         {
             try
             {
