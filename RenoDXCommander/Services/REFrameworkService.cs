@@ -37,7 +37,7 @@ public class REFrameworkService : IREFrameworkService
 
     private static readonly string DbPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "reframework_installed.json");
+        "SalsaNeural", "reframework_installed.json");
 
     // ── State ─────────────────────────────────────────────────────────────────────
 

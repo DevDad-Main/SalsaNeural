@@ -95,7 +95,7 @@ public sealed partial class MainWindow : Window
         AuxInstallService.EnsureReShadeStaging(); // create staging dir (DLLs downloaded by ReShadeUpdateService)
         App.Services.GetRequiredService<CustomReShadeHashService>().EnsureInitialized(); // seed hash file on first run
         App.Services.GetRequiredService<IOptiScalerService>().SeedUserInis(); // seed OptiScaler INIs if missing
-        Title = "RHI";
+        Title = "SalsaNeural";
         // Fire-and-forget: check/download shader packs in the background
         // When CacheAllShaders is off, skip the bulk download — packs will be fetched on demand.
         Task shaderTask;
@@ -313,7 +313,7 @@ public sealed partial class MainWindow : Window
         {
             var signalPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "rhi_shutdown_requested");
+                "SalsaNeural", "rhi_shutdown_requested");
             if (File.Exists(signalPath))
             {
                 try { File.Delete(signalPath); } catch { }

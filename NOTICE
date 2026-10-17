@@ -1,0 +1,17 @@
+SalsaNeural
+Copyright (C) 2026 DevDad
+
+This project is a derivative of RHI (ReShade HDR Installer),
+Copyright (C) RankFTW — https://github.com/RankFTW/RHI
+
+RHI is licensed under the GNU General Public License v3.0 (GPL-3.0).
+SalsaNeural is distributed under the same license. See the LICENSE file.
+
+Modifications by DevDad (2026):
+- Administrator elevation paths disabled (Admin Mode, scheduled task, runas, HKLM writes)
+- Per-user / portable distribution (no Program Files, no runtime installer)
+- Rebranded as SalsaNeural for GeForce NOW / SalsaNOW desktop-mode use
+- Game-folder write preflight with user-facing guidance
+
+Upstream components (ReShade, RenoDX, OptiScaler, etc.) remain under their
+ respective licenses as documented in the upstream RHI README.

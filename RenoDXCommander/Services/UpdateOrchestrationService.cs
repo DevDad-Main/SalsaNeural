@@ -430,6 +430,13 @@ public class UpdateOrchestrationService : IUpdateOrchestrationService
     /// </summary>
     private static async Task ElevatedFileCopyAsync(string source, string destination)
     {
+        if (NoAdminMode.Enabled)
+        {
+            _ = source; _ = destination;
+            await Task.CompletedTask;
+            NoAdminMode.ThrowElevationBlocked("Updating the Vulkan ReShade layer");
+        }
+
         var psi = new System.Diagnostics.ProcessStartInfo
         {
             FileName = "cmd.exe",

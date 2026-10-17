@@ -206,7 +206,7 @@ public partial class MainViewModel
         // Presence means the previous session ended with a UI freeze, not a clean user close.
         var uncleanMarkerPath = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "rhi_unclean_restart");
+            "SalsaNeural", "rhi_unclean_restart");
         if (System.IO.File.Exists(uncleanMarkerPath))
         {
             string markerContent = "";
@@ -220,7 +220,7 @@ public partial class MainViewModel
         // If present, the previous session froze and wrote (or attempted) a dump. Log path and size.
         var pendingDumpMarker = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "rhi_pending_dump");
+            "SalsaNeural", "rhi_pending_dump");
         if (System.IO.File.Exists(pendingDumpMarker))
         {
             string dumpInfo = "";

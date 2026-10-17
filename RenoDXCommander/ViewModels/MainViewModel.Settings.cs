@@ -1838,7 +1838,7 @@ public partial class MainViewModel
 
         var settingsPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "settings.json");
+            "SalsaNeural", "settings.json");
 
         if (!File.Exists(settingsPath))
             return result;

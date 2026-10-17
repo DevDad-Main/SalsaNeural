@@ -430,6 +430,13 @@ public partial class DlssPresetService
     /// <summary>Sets ULL Enable and Mode via an elevated PowerShell process (these settings require admin).</summary>
     private bool SetLowLatencyElevated(string gameName, string installPath, uint ullEnable, uint ullMode)
     {
+        if (NoAdminMode.Enabled)
+        {
+            _ = gameName; _ = installPath; _ = ullEnable; _ = ullMode;
+            CrashReporter.Log("[DlssPresetService.SetLowLatencyElevated] Blocked — requires elevation (NoAdminMode)");
+            return false;
+        }
+
         try
         {
             var scriptPath = Path.Combine(Path.GetTempPath(), "rhi_latency_set.ps1");

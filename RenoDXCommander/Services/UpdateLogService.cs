@@ -14,7 +14,7 @@ public class UpdateLogService : IUpdateLogService
 
     private static readonly string FilePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "update_log.json");
+        "SalsaNeural", "update_log.json");
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {

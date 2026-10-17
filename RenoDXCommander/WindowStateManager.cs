@@ -33,7 +33,7 @@ public class WindowStateManager
 
     private static readonly string _windowSettingsPath = System.IO.Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "window_main.json");
+        "SalsaNeural", "window_main.json");
 
     // In-memory cache of window bounds (populated from file on first restore)
     private (int X, int Y, int W, int H)? _windowBounds;
@@ -225,7 +225,7 @@ public class WindowStateManager
             {
                 var settingsPath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "RHI", "settings.json");
+                    "SalsaNeural", "settings.json");
                 if (File.Exists(settingsPath))
                 {
                     var json = File.ReadAllText(settingsPath);

@@ -23,7 +23,7 @@ public partial class DialogService
 
     private static readonly string PatchNotesDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI");
+        "SalsaNeural");
 
     public DialogService(MainWindow window)
     {

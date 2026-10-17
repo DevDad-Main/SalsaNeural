@@ -12,7 +12,7 @@ public class NormalReShadeUpdateService : INormalReShadeUpdateService
 {
     private static readonly string CacheDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "reshade-normal");
+        "SalsaNeural", "reshade-normal");
 
     private static readonly string VersionFile = Path.Combine(CacheDir, "reshade_version.txt");
 

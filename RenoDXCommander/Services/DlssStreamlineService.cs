@@ -39,7 +39,7 @@ public partial class DlssStreamlineService : IDlssStreamlineService
     // ── Staging directories ───────────────────────────────────────────────────
 
     private static readonly string BaseStagingDir = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI");
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural");
 
     private static readonly string DlssCacheDir = Path.Combine(BaseStagingDir, "DLSS");
     private static readonly string DlssdCacheDir = Path.Combine(BaseStagingDir, "DLSS-D");
@@ -105,7 +105,7 @@ public partial class DlssStreamlineService : IDlssStreamlineService
 
     /// <summary>Custom ReShade folder path — exposed for AuxInstallService.</summary>
     public static string RsCustomDir => Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI", "Custom", "ReShade");
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural", "Custom", "ReShade");
 
     /// <summary>
     /// One-time migration: moves files from old DLSS-Custom/Streamline-Custom to Custom\DLSS and Custom\Streamline.

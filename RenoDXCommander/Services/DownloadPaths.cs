@@ -8,7 +8,7 @@ public static class DownloadPaths
 {
     public static readonly string Root = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "downloads");
+        "SalsaNeural", "downloads");
 
     public static readonly string Shaders      = Path.Combine(Root, "shaders");
     public static readonly string RenoDX       = Path.Combine(Root, "renodx");

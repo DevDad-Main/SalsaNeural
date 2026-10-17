@@ -17,7 +17,7 @@ public partial class UltraPlusService : IUltraPlusService
 
     private static readonly string CachePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "ultraplus_games.html");
+        "SalsaNeural", "ultraplus_games.html");
 
     private static readonly TimeSpan CacheTtl = TimeSpan.FromHours(24);
 

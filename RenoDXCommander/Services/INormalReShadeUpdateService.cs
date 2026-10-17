@@ -16,7 +16,7 @@ public interface INormalReShadeUpdateService
         {
             var versionFile = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "reshade-normal", "reshade_version.txt");
+                "SalsaNeural", "reshade-normal", "reshade_version.txt");
             return File.Exists(versionFile) ? File.ReadAllText(versionFile).Trim() : null;
         }
         catch { return null; }

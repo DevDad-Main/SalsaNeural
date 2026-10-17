@@ -202,7 +202,7 @@ public partial class DlssPresetService
 
     private static readonly string ProfileNameCachePath =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "nvidia_profile_cache.json");
+            "SalsaNeural", "nvidia_profile_cache.json");
 
     private Dictionary<string, string?>? _persistentProfileNameCache;
 

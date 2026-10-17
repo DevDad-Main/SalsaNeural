@@ -531,7 +531,7 @@ public partial class ShaderPackService
 
     private static readonly string SettingsPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "settings.json");
+        "SalsaNeural", "settings.json");
 
     /// <summary>Serializes all settings.json reads and writes to prevent concurrent access errors.</summary>
     private static readonly SemaphoreSlim _settingsLock = new(1, 1);

@@ -30,7 +30,7 @@ public class ManifestService : IManifestService
 
     private static readonly string CachePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "manifest.json");
+        "SalsaNeural", "manifest.json");
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {

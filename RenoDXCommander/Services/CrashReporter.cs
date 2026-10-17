@@ -27,7 +27,7 @@ public static class CrashReporter
 
     private static readonly string LogDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "logs");
+        "SalsaNeural", "logs");
 
     /// <summary>Maximum number of crash/error log files kept on disk.</summary>
     private const int MaxLogFiles = 10;

@@ -48,7 +48,7 @@ public class SettingsHandler
         _window.LoadingPanel.Visibility = Visibility.Collapsed;
         // Sync toggle state with ViewModel
         _window.CustomShadersCombo.SelectedIndex = ViewModel.Settings.GlobalShadersOff ? 0 : (ViewModel.Settings.UseCustomShaders ? 2 : 1);
-        _window.AboutVersionText.Text = $"v{CrashReporter.AppVersion}  ·  Simplified PC Gaming by RankFTW";
+        _window.AboutVersionText.Text = $"v{CrashReporter.AppVersion}  ·  Based on RHI by RankFTW (GPL-3.0)";
         // Show installed Windows App Runtime version
         // Populate addon watch folder textbox
         _window.AddonWatchFolderBox.Text = ViewModel.Settings.AddonWatchFolder;
@@ -393,12 +393,12 @@ public class SettingsHandler
                     await System.Threading.Tasks.Task.Delay(5_000).ConfigureAwait(false);
 
                     var restartLogPath = System.IO.Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI", "restart_log.txt");
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural", "restart_log.txt");
                     var now = DateTime.UtcNow;
                     try { System.IO.File.AppendAllText(restartLogPath, now.ToString("O") + Environment.NewLine); } catch { }
 
                     var uncleanMarkerPath = System.IO.Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI", "rhi_unclean_restart");
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural", "rhi_unclean_restart");
                     try { System.IO.File.WriteAllText(uncleanMarkerPath, now.ToString("O")); } catch { }
 
                     CrashReporter.LogSync("[FreezeDiag] Test Fast Restart: executing restart now");
@@ -937,7 +937,7 @@ public class SettingsHandler
     {
         var logsDir = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "logs");
+            "SalsaNeural", "logs");
         System.IO.Directory.CreateDirectory(logsDir);
         CrashReporter.Log("[SettingsHandler.OpenLogsFolder_Click] User opened logs folder");
         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(logsDir) { UseShellExecute = true });
@@ -952,6 +952,18 @@ public class SettingsHandler
     /// </summary>
     public async Task InitAdminModeComboAsync(ComboBox combo)
     {
+        _adminComboInit = true;
+
+        if (Services.NoAdminMode.Enabled)
+        {
+            // SalsaNeural: Admin Mode does not exist. Force Off and lock the control.
+            combo.SelectedIndex = 0;
+            combo.IsEnabled = false;
+            _adminComboInit = false;
+            await Task.CompletedTask;
+            return;
+        }
+
         _adminComboInit = true;
         // When UAC is disabled or the task exists, show as On
         // Run the schtasks query on a background thread to avoid blocking UI
@@ -968,6 +980,23 @@ public class SettingsHandler
     {
         if (_adminComboInit) return;
         if (sender is not ComboBox combo) return;
+
+        if (Services.NoAdminMode.Enabled)
+        {
+            _adminComboInit = true;
+            combo.SelectedIndex = 0;
+            combo.IsEnabled = false;
+            _adminComboInit = false;
+            await DialogService.ShowSafeAsync(new ContentDialog
+            {
+                Title = "Admin Mode",
+                Content = "Admin Mode is not available in SalsaNeural. The app never requests administrator privileges.",
+                CloseButtonText = "OK",
+                XamlRoot = _window.Content.XamlRoot,
+                RequestedTheme = ElementTheme.Dark,
+            });
+            return;
+        }
 
         bool enable = combo.SelectedIndex == 1;
         CrashReporter.Log($"[SettingsHandler.AdminModeCombo] Admin mode = {(enable ? "On" : "Off")}");
@@ -1112,7 +1141,7 @@ public class SettingsHandler
     public void OpenAppDataFolder_Click(object sender, RoutedEventArgs e)
     {
         var appDataDir = System.IO.Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI");
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural");
         System.IO.Directory.CreateDirectory(appDataDir);
         CrashReporter.Log("[SettingsHandler.OpenAppDataFolder_Click] User opened AppData folder");
         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(appDataDir) { UseShellExecute = true });
@@ -1121,7 +1150,7 @@ public class SettingsHandler
     public void OpenCustomFolder_Click(object sender, RoutedEventArgs e)
     {
         var customDir = System.IO.Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI", "Custom");
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural", "Custom");
         System.IO.Directory.CreateDirectory(customDir);
         CrashReporter.Log("[SettingsHandler.OpenCustomFolder_Click] User opened Custom folder");
         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(customDir) { UseShellExecute = true });
@@ -1305,7 +1334,7 @@ public class SettingsHandler
         {
             var logsDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "logs");
+                "SalsaNeural", "logs");
             if (!Directory.Exists(logsDir))
             {
                 CrashReporter.Log("[SettingsHandler.CopyLogsArchive_Click] Logs directory does not exist");
@@ -1370,7 +1399,7 @@ public class SettingsHandler
 
         int filesDeleted = 0;
         long bytesFreed = 0;
-        var rhiRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI");
+        var rhiRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural");
 
         // Folders to purge completely (delete all contents, keep folder)
         var foldersToClean = new[]
@@ -2451,6 +2480,13 @@ public class SettingsHandler
     /// </summary>
     private static async Task ElevatedFileCopyAsync(string source, string destination)
     {
+        if (NoAdminMode.Enabled)
+        {
+            _ = source; _ = destination;
+            await Task.CompletedTask;
+            NoAdminMode.ThrowElevationBlocked("Updating the Vulkan ReShade layer");
+        }
+
         var psi = new System.Diagnostics.ProcessStartInfo
         {
             FileName = "cmd.exe",
@@ -2658,7 +2694,7 @@ public class SettingsHandler
         // Check if a PAT file is active
         var patPath = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "github_api.txt");
+            "SalsaNeural", "github_api.txt");
         bool hasPat = System.IO.File.Exists(patPath);
 
         // Update the PAT status text to show file state
@@ -2860,7 +2896,7 @@ public class SettingsHandler
         {
             var path = System.IO.Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "github_api.txt");
+                "SalsaNeural", "github_api.txt");
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path)!);
             System.IO.File.WriteAllText(path, pat);
         }
@@ -2895,7 +2931,7 @@ public class SettingsHandler
         {
             var path = System.IO.Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "github_api.txt");
+                "SalsaNeural", "github_api.txt");
             if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
         }
         catch (Exception ex)

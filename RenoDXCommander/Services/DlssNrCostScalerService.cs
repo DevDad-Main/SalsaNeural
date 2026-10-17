@@ -45,7 +45,7 @@ public class DlssNrCostScalerService
         _etagCache     = etagCache;
         _stagingDir    = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "dlssnr-cost-scaler");
+            "SalsaNeural", "dlssnr-cost-scaler");
         _versionFile   = Path.Combine(_stagingDir, "version.txt");
     }
 

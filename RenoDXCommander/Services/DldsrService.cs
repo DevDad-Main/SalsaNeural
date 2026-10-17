@@ -101,7 +101,7 @@ public class DldsrService : IDldsrService
 
     public string CapturesFilePath => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dldsr-captures.json");
+        "SalsaNeural", "dldsr-captures.json");
 
     public bool HasCaptures => File.Exists(CapturesFilePath) && LoadCaptures().Count > 0;
 
@@ -256,14 +256,14 @@ public class DldsrService : IDldsrService
             CrashReporter.Log($"[DldsrService.CaptureCurrentState] Access denied: {ex.Message}");
             throw new UnauthorizedAccessException(
                 "Cannot read DLDSR registry keys. Admin privileges are required.\n\n" +
-                "Please enable Admin Mode in RHI Settings or run RHI as Administrator.");
+                "SalsaNeural never runs as administrator, so DSR/DLDSR is unavailable.");
         }
         catch (System.Security.SecurityException ex)
         {
             CrashReporter.Log($"[DldsrService.CaptureCurrentState] Security exception: {ex.Message}");
             throw new UnauthorizedAccessException(
                 "Cannot read DLDSR registry keys. Admin privileges are required.\n\n" +
-                "Please enable Admin Mode in RHI Settings or run RHI as Administrator.");
+                "SalsaNeural never runs as administrator, so DSR/DLDSR is unavailable.");
         }
 
         if (monitors.Count == 0)

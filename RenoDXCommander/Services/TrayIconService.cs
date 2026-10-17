@@ -89,7 +89,7 @@ public static class TrayIconService
             uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP,
             uCallbackMessage = WM_TRAYICON,
             hIcon = hIcon,
-            szTip = "RHI",
+            szTip = "SalsaNeural",
         };
         Shell_NotifyIcon(NIM_ADD, ref nid);
         _iconCreated = true;

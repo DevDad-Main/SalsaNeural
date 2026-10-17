@@ -90,14 +90,14 @@ public static class ShortcutService
         try
         {
             var exeDir     = Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory;
-            var rhiExePath = Path.Combine(exeDir, "RHI.exe");
+            var rhiExePath = Environment.ProcessPath ?? Path.Combine(exeDir, "SalsaNeural.exe");
             var desktop    = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var safeName   = string.Concat(gameName.Split(Path.GetInvalidFileNameChars()));
             var lnkPath    = Path.Combine(desktop, $"{safeName}.lnk");
 
             var iconDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "ShortcutIcons");
+                "SalsaNeural", "ShortcutIcons");
             Directory.CreateDirectory(iconDir);
 
             string? iconPath = null;

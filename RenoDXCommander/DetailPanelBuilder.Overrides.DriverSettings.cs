@@ -107,7 +107,7 @@ public partial class DetailPanelBuilder
             {
                 Text = elevated
                     ? "✓ Running as admin — all driver profile settings are writable."
-                    : "⚠ Admin rights required to write driver profile settings. Enable Admin Mode in Settings or restart as admin.",
+                    : "⚠ Admin rights required to write driver profile settings. unavailable in SalsaNeural (no administrator privileges on GeForce NOW).",
                 FontSize     = 10,
                 Foreground   = UIFactory.Brush(elevated ? ResourceKeys.TextTertiaryBrush : ResourceKeys.AccentAmberDimBrush),
                 TextWrapping = TextWrapping.Wrap,
@@ -843,7 +843,7 @@ public partial class DetailPanelBuilder
                     {
                         Text = isElevatedCapture
                             ? "✓ Running as admin — all driver profile settings are writable."
-                            : "⚠ Admin rights required to write driver profile settings. Enable Admin Mode in Settings or restart as admin.",
+                            : "⚠ Admin rights required to write driver profile settings. unavailable in SalsaNeural (no administrator privileges on GeForce NOW).",
                         FontSize = 10,
                         Foreground = UIFactory.Brush(isElevatedCapture ? ResourceKeys.TextTertiaryBrush : ResourceKeys.AccentAmberDimBrush),
                         TextWrapping = TextWrapping.Wrap,
@@ -862,7 +862,7 @@ public partial class DetailPanelBuilder
             {
                 Text = isElevated
                     ? "✓ Running as admin — all driver profile settings are writable."
-                    : "⚠ Admin rights required to write driver profile settings. Enable Admin Mode in Settings or restart as admin.",
+                    : "⚠ Admin rights required to write driver profile settings. unavailable in SalsaNeural (no administrator privileges on GeForce NOW).",
                 FontSize = 10,
                 Foreground = UIFactory.Brush(isElevated ? ResourceKeys.TextTertiaryBrush : ResourceKeys.AccentAmberDimBrush),
                 TextWrapping = TextWrapping.Wrap,

@@ -6,7 +6,7 @@
     xmlns:vm="using:RenoDXCommander.ViewModels"
     xmlns:converters="using:RenoDXCommander.Converters"
     xmlns:controls="using:RenoDXCommander.Controls"
-    Title="RHI">
+    Title="SalsaNeural">
     <Grid RequestedTheme="Dark" Background="{StaticResource SurfaceBaseBrush}" AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop">
         <Grid.Resources>
             <x:Double x:Key="CardItemWidth">390</x:Double>
@@ -36,9 +36,9 @@
                     </Border>
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock FontSize="15" FontWeight="Bold">
-                            <Run Text="RHI" Foreground="{StaticResource AccentTealBrush}"/>
+                            <Run Text="SalsaNeural" Foreground="{StaticResource AccentTealBrush}"/>
                         </TextBlock>
-                        <TextBlock Text="Simplified PC Gaming" FontSize="10" Foreground="{StaticResource AccentTealDimBrush}"/>
+                        <TextBlock Text="Neural rendering without admin" FontSize="10" Foreground="{StaticResource AccentTealDimBrush}"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -2764,12 +2764,12 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <!-- Admin Mode description + combo -->
+                                    <!-- Admin Mode description + combo (locked Off in SalsaNeural) -->
                                     <StackPanel Grid.Row="0" Spacing="4">
                                         <TextBlock Text="Admin Mode" FontSize="13" FontWeight="SemiBold"
                                                    Foreground="{StaticResource TextPrimaryBrush}"/>
                                         <TextBlock TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource InlineDescriptionBrush}" LineHeight="18"
-                                                   Text="Creates a scheduled task to launch RHI with elevated privileges. Required for ReBAR, Low Latency Ultra, and Smooth Motion driver settings. The Drop Helper enables Discord drag-and-drop when running elevated."/>
+                                                   Text="Not available in SalsaNeural. The app never requests administrator privileges (built for GeForce NOW / SalsaNOW). ReBAR, Low Latency Ultra, Smooth Motion, and Vulkan ReShade are unavailable."/>
                                     </StackPanel>
                                     <Grid Grid.Row="1" ColumnSpacing="12">
                                         <Grid.ColumnDefinitions>
@@ -2940,7 +2940,7 @@
                                     <Image Source="icon.ico" Width="48" Height="48"/>
                                     <StackPanel VerticalAlignment="Center" Spacing="4">
                                         <TextBlock FontSize="20" FontWeight="Bold">
-                                            <Run Text="RHI" Foreground="{StaticResource AccentTealBrush}"/>
+                                            <Run Text="SalsaNeural" Foreground="{StaticResource AccentTealBrush}"/>
                                         </TextBlock>
                                         <TextBlock x:Name="AboutVersionText" x:FieldModifier="internal" FontSize="12" Foreground="{StaticResource InlineDescriptionBrush}"/>
                                     </StackPanel>
@@ -3194,11 +3194,11 @@
                                 <Border Background="{StaticResource SurfaceStatusBarBrush}" CornerRadius="8" Padding="12,10" BorderBrush="{StaticResource BorderSubtleBrush}" BorderThickness="1">
                                     <StackPanel Spacing="3">
                                         <TextBlock FontSize="12">
-                                            <Run Text="RHI" FontWeight="SemiBold" Foreground="{StaticResource AccentGreenBrush}"/>
-                                            <Run Text=" by RankFTW" Foreground="{StaticResource TextTertiaryBrush}"/>
+                                            <Run Text="SalsaNeural" FontWeight="SemiBold" Foreground="{StaticResource AccentGreenBrush}"/>
+                                            <Run Text=" — based on RHI by RankFTW" Foreground="{StaticResource TextTertiaryBrush}"/>
                                         </TextBlock>
                                         <TextBlock FontSize="11" Foreground="{StaticResource InlineDescriptionBrush}" TextWrapping="Wrap"
-                                                   Text="Unofficial companion app. Not affiliated with RenoDX, Crosire, or pmnoxx."/>
+                                                   Text="GPL-3.0 fork for GeForce NOW / SalsaNOW. Not affiliated with NVIDIA, RankFTW, RenoDX, Crosire, or pmnoxx."/>
                                         <HyperlinkButton NavigateUri="https://github.com/RankFTW" Padding="0,2,0,0" FontSize="11">
                                             <TextBlock Foreground="{StaticResource AccentTealDimBrush}" Text="github.com/RankFTW"/>
                                         </HyperlinkButton>

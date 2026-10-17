@@ -13,7 +13,7 @@ public static class PresetPopupHelper
 {
     public static readonly string PresetsDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "inis", "reshade-presets");
+        "SalsaNeural", "inis", "reshade-presets");
 
     /// <summary>
     /// Shows the preset selection popup.

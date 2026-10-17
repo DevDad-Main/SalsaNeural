@@ -18,20 +18,20 @@ public partial class DxvkService : IDxvkService
     // Legacy staging folder (used for migration detection)
     private static readonly string LegacyStagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dxvk");
+        "SalsaNeural", "dxvk");
 
     // Separate staging directories for each variant (coexist simultaneously)
     private static readonly string StagingDirDevelopment = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dxvk-development");
+        "SalsaNeural", "dxvk-development");
 
     private static readonly string StagingDirStable = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dxvk-stable");
+        "SalsaNeural", "dxvk-stable");
 
     private static readonly string StagingDirLilium = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dxvk-lilium");
+        "SalsaNeural", "dxvk-lilium");
 
     /// <summary>
     /// The active staging directory — resolves based on the currently selected variant.
@@ -44,7 +44,7 @@ public partial class DxvkService : IDxvkService
 
     private static readonly string DbPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dxvk_installed.json");
+        "SalsaNeural", "dxvk_installed.json");
 
     private static readonly string ConfTemplatePath = Path.Combine(
         AuxInstallService.InisDir, "dxvk.conf");

@@ -42,7 +42,7 @@ public class NexusUpdateService : INexusUpdateService
 
     private static readonly string BaselinesPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "nexus_baselines.json");
+        "SalsaNeural", "nexus_baselines.json");
 
     private static readonly Regex NexusUrlPattern = new(
         @"nexusmods\.com/([^/]+)/mods/(\d+)",

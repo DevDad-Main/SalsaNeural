@@ -42,7 +42,7 @@ public class DlssEnablerService
 
         _stagingDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "optiDE");
+            "SalsaNeural", "optiDE");
         _versionFile = Path.Combine(_stagingDir, "version.txt");
     }
 

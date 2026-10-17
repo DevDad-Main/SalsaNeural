@@ -29,6 +29,10 @@ public static class VulkanLayerService
     /// </summary>
     public static bool IsRunningAsAdmin()
     {
+        // SalsaNeural: never elevated. Callers use this to disable admin-only UI/paths.
+        if (NoAdminMode.Enabled)
+            return false;
+
         using var identity = WindowsIdentity.GetCurrent();
         var principal = new WindowsPrincipal(identity);
         if (principal.IsInRole(WindowsBuiltInRole.Administrator))

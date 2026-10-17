@@ -451,7 +451,7 @@ public partial class DetailPanelBuilder
         const string DeployFileName  = "renodx-mfgunlock.addon64";
         var stagedPath  = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "addons", "MFG Ada Unlock.addon64");
+            "SalsaNeural", "addons", "MFG Ada Unlock.addon64");
 
         // Use cached state from card instead of File.Exists on UI thread
         bool isInstalled   = card.MfgAdaInstalled;

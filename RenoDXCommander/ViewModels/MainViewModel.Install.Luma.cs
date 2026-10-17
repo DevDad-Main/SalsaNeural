@@ -406,7 +406,7 @@ public partial class MainViewModel
         // GAC symlink removal requires admin (files are in C:\Windows\...)
         if (isGacGame && !IsRunningAsAdminFunc())
         {
-            card.RsActionMessage = "⚠ Administrator privileges required to remove GAC symlinks. Enable Admin Mode in Settings.";
+            card.RsActionMessage = "⚠ Administrator privileges required to remove GAC symlinks — unavailable in SalsaNeural.";
             card.NotifyAll();
             return;
         }

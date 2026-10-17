@@ -897,45 +897,26 @@ public partial class DialogService
             while (_window.Content.XamlRoot == null)
                 await Task.Delay(100);
 
+            // SalsaNeural: never offers elevation. Explain the limitation once.
             var dlg = new ContentDialog
             {
-                Title = "Administrator Privileges Required",
+                Title = "Vulkan ReShade Unavailable",
                 Content = new TextBlock
                 {
                     TextWrapping = TextWrapping.Wrap,
                     FontSize = 13,
                     Text = "Installing the Vulkan ReShade layer requires writing to C:\\ProgramData\\ReShade\\ " +
                            "and modifying system registry keys, which needs administrator privileges.\n\n" +
-                           "Enable Admin Mode — RHI will always launch elevated (no UAC prompt after setup).\n\n" +
-                           "Restart as Admin — one-time elevated restart to complete this install.",
+                           "SalsaNeural never requests administrator privileges (built for GeForce NOW / SalsaNOW " +
+                           "sessions where admin is impossible). Vulkan games are not supported — use DX11/DX12 games instead.",
                 },
-                PrimaryButtonText = "Enable Admin Mode",
-                SecondaryButtonText = "Restart as Admin",
-                CloseButtonText = "Cancel",
+                CloseButtonText = "OK",
                 XamlRoot = _window.Content.XamlRoot,
                 Background = Brush(ResourceKeys.SurfaceOverlayBrush),
                 RequestedTheme = ElementTheme.Dark,
             };
 
-            var result = await ShowSafeAsync(dlg);
-
-            if (result == ContentDialogResult.Primary)
-            {
-                // Enable Admin Mode (creates scheduled task + restarts)
-                try
-                {
-                    CreateAdminTaskAndRestart();
-                }
-                catch (Exception ex)
-                {
-                    CrashReporter.Log($"[DialogService.ShowVulkanAdminRequiredDialog] Admin mode setup failed — {ex.Message}");
-                }
-            }
-            else if (result == ContentDialogResult.Secondary)
-            {
-                // One-time restart as admin
-                RestartAsAdmin();
-            }
+            await ShowSafeAsync(dlg);
         }
         catch (Exception ex)
         {
@@ -945,9 +926,16 @@ public partial class DialogService
 
     /// <summary>
     /// Creates the Admin Mode scheduled task (UAC prompt) and restarts RHI through it.
+    /// Disabled in SalsaNeural.
     /// </summary>
     private static void CreateAdminTaskAndRestart()
     {
+        if (Services.NoAdminMode.Enabled)
+        {
+            CrashReporter.Log("[DialogService.CreateAdminTaskAndRestart] Blocked — NoAdminMode");
+            return;
+        }
+
         var exePath = Environment.ProcessPath ?? System.Reflection.Assembly.GetExecutingAssembly().Location;
         var taskName = "RHI Admin Mode";
 
@@ -980,9 +968,16 @@ public partial class DialogService
 
     /// <summary>
     /// Restarts RHI as admin via a one-time UAC prompt (no scheduled task).
+    /// Disabled in SalsaNeural.
     /// </summary>
     private static void RestartAsAdmin()
     {
+        if (Services.NoAdminMode.Enabled)
+        {
+            CrashReporter.Log("[DialogService.RestartAsAdmin] Blocked — NoAdminMode");
+            return;
+        }
+
         var exePath = Environment.ProcessPath ?? System.Reflection.Assembly.GetExecutingAssembly().Location;
         var psi = new System.Diagnostics.ProcessStartInfo(exePath)
         {

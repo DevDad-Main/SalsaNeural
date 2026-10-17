@@ -29,7 +29,7 @@ public partial class OptiScalerService : IOptiScalerService
 
     private static readonly string StagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "optiscaler");
+        "SalsaNeural", "optiscaler");
 
     private static readonly string VersionFilePath = Path.Combine(StagingDir, "version.txt");
 
@@ -81,7 +81,7 @@ public partial class OptiScalerService : IOptiScalerService
 
     private static readonly string NightlyStagingRoot = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "optiscaler-nightly");
+        "SalsaNeural", "optiscaler-nightly");
     // Legacy flat staging dir (pre-versioned) — used only for migration detection
     private static readonly string NightlyStagingDir = NightlyStagingRoot;
     private static readonly string NightlyVersionFilePath = Path.Combine(NightlyStagingRoot, "version.txt");
@@ -102,7 +102,7 @@ public partial class OptiScalerService : IOptiScalerService
         "https://api.github.com/repos/optiscaler/OptiPatcher/releases/tags/rolling";
     private static readonly string OptiPatcherStagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "optipatcher");
+        "SalsaNeural", "optipatcher");
     private static readonly string OptiPatcherVersionPath = Path.Combine(OptiPatcherStagingDir, "version.txt");
     private static readonly string OptiPatcherFileName = "OptiPatcher.asi";
 
@@ -115,7 +115,7 @@ public partial class OptiScalerService : IOptiScalerService
         "https://raw.githubusercontent.com/beeradmoore/dlss-swapper-manifest-builder/main/manifest.json";
     private static readonly string DlssStagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dlss");
+        "SalsaNeural", "dlss");
     private static readonly string DlssVersionPath = Path.Combine(DlssStagingDir, "version.txt");
     private static readonly string DlssdVersionPath = Path.Combine(DlssStagingDir, "version_dlssd.txt");
     private static readonly string DlssgVersionPath = Path.Combine(DlssStagingDir, "version_dlssg.txt");
@@ -312,7 +312,7 @@ public partial class OptiScalerService : IOptiScalerService
 
     private static readonly string DlssNrStagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "optiscaler-dlssnr");
+        "SalsaNeural", "optiscaler-dlssnr");
     private static readonly string DlssNrVersionFilePath = Path.Combine(DlssNrStagingDir, "version.txt");
 
     /// <summary>GitHub releases list URL for the DLSS NR OptiScaler fork.</summary>
@@ -351,7 +351,7 @@ public partial class OptiScalerService : IOptiScalerService
 
     private static readonly string F5StagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "optiscaler-f5");
+        "SalsaNeural", "optiscaler-f5");
     private static readonly string F5VersionFilePath = Path.Combine(F5StagingDir, "version.txt");
 
     /// <summary>GitHub releases API URL for the F5 DLSSNR OptiScaler fork.</summary>

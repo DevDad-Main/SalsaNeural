@@ -288,7 +288,7 @@ public partial class MainViewModel
             if (!string.IsNullOrEmpty(engineIniFilenameToggle))
             {
                 var cacheDir = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI", "engine-files");
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural", "engine-files");
                 var cachePath = Path.Combine(cacheDir, engineIniFilenameToggle);
                 if (File.Exists(cachePath))
                 {
@@ -1110,7 +1110,7 @@ public partial class MainViewModel
             if (!string.IsNullOrEmpty(engineIniFilename))
             {
                 var cacheDir = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI", "engine-files");
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural", "engine-files");
                 var cachePath = Path.Combine(cacheDir, engineIniFilename);
                 if (File.Exists(cachePath))
                 {

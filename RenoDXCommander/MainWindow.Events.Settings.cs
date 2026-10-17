@@ -681,7 +681,7 @@ public sealed partial class MainWindow
             var json = System.Text.Json.JsonSerializer.Serialize(data, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
             var path = System.IO.Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "nvidia_profiles_backup.json");
+                "SalsaNeural", "nvidia_profiles_backup.json");
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path)!);
             System.IO.File.WriteAllText(path, json);
 
@@ -712,7 +712,7 @@ public sealed partial class MainWindow
     {
         var path = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "nvidia_profiles_backup.json");
+            "SalsaNeural", "nvidia_profiles_backup.json");
 
         if (!System.IO.File.Exists(path))
         {
@@ -1156,6 +1156,23 @@ public sealed partial class MainWindow
         try
         {
             // Writing to HKLM requires admin — use a reg.exe process with elevation
+            if (Services.NoAdminMode.Enabled)
+            {
+                _crashReporter.Log("[DlssIndicatorCombo] HKLM write blocked (NoAdminMode) — reverting selection");
+                _dlssIndicatorInitializing = true;
+                combo.SelectedIndex = combo.SelectedIndex == 0 ? 1 : 0;
+                _dlssIndicatorInitializing = false;
+                await DialogService.ShowSafeAsync(new ContentDialog
+                {
+                    Title = "Unavailable",
+                    Content = "The DLSS Indicator toggle writes to HKLM and requires administrator privileges, which SalsaNeural never requests.",
+                    CloseButtonText = "OK",
+                    XamlRoot = Content.XamlRoot,
+                    RequestedTheme = ElementTheme.Dark,
+                });
+                return;
+            }
+
             var regValue = value.ToString();
             var psi = new System.Diagnostics.ProcessStartInfo("reg.exe",
                 $"add \"HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\NGXCore\" /v ShowDlssIndicator /t REG_DWORD /d {regValue} /f")
@@ -2059,7 +2076,7 @@ public sealed partial class MainWindow
 
     private void AboutButton_Click(object sender, RoutedEventArgs e)
     {
-        AboutVersionText.Text = $"v{CrashReporter.AppVersion}  ·  Simplified PC Gaming by RankFTW";
+        AboutVersionText.Text = $"v{CrashReporter.AppVersion}  ·  Based on RHI by RankFTW (GPL-3.0)";
         // Show installed Windows App Runtime version — scan WindowsApps for the installed runtime folder
         try
         {

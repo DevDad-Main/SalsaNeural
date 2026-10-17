@@ -46,7 +46,7 @@ public class Rtx40MfgService
         _etagCache     = etagCache;
         _stagingDir    = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "rtx40mfg");
+            "SalsaNeural", "rtx40mfg");
         _versionFile   = Path.Combine(_stagingDir, "version.txt");
 
         // One-time migration: wipe old ASI-based staging so new RTXMFG.dll will be downloaded

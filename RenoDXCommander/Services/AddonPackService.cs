@@ -16,22 +16,22 @@ public class AddonPackService : IAddonPackService
 
     private static readonly string StagingDir =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "addons");
+            "SalsaNeural", "addons");
 
     private static readonly string CachePath =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "addons_cache.ini");
+            "SalsaNeural", "addons_cache.ini");
 
     private static readonly string VersionsJsonPath =
         Path.Combine(StagingDir, "versions.json");
 
     private static readonly string DeploymentsJsonPath =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "addon_deployments.json");
+            "SalsaNeural", "addon_deployments.json");
 
     private static readonly string CustomAddonsDir =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "Custom", "Addons");
+            "SalsaNeural", "Custom", "Addons");
 
     private readonly HttpClient _http;
     private List<AddonEntry> _packs = new();
@@ -244,7 +244,7 @@ public class AddonPackService : IAddonPackService
             {
                 var libPath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "RHI", "game_library.json");
+                    "SalsaNeural", "game_library.json");
                 if (File.Exists(libPath))
                 {
                     var libJson = File.ReadAllText(libPath);

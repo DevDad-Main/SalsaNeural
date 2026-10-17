@@ -747,7 +747,7 @@ public partial class OptiScalerService
     {
         var newCacheDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "DLSS");
+            "SalsaNeural", "DLSS");
         return FindNewestDllInCache(newCacheDir, DlssDllFileName);
     }
 
@@ -759,7 +759,7 @@ public partial class OptiScalerService
     {
         var newCacheDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "DLSS-D");
+            "SalsaNeural", "DLSS-D");
         return FindNewestDllInCache(newCacheDir, DlssdDllFileName);
     }
 
@@ -771,7 +771,7 @@ public partial class OptiScalerService
     {
         var newCacheDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "DLSS-G");
+            "SalsaNeural", "DLSS-G");
         return FindNewestDllInCache(newCacheDir, DlssgDllFileName);
     }
 

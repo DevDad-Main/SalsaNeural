@@ -12,7 +12,7 @@ public partial class OptiScalerService
     /// </summary>
     public static string StreamlineStagingFolder => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "Streamline");
+        "SalsaNeural", "Streamline");
 
     /// <summary>
     /// Copies all files from the specified Streamline version subfolder to

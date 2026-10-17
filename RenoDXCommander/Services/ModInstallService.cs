@@ -21,7 +21,7 @@ public class ModInstallService : IModInstallService
 
     private static readonly string DbPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "installed.json");
+        "SalsaNeural", "installed.json");
 
     private readonly HttpClient _http;
 

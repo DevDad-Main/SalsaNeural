@@ -7,7 +7,7 @@ public class GameLibraryService : IGameLibraryService
 {
     private static readonly string LibraryPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "game_library.json");
+        "SalsaNeural", "game_library.json");
     private static readonly JsonSerializerOptions JsonOpts = new() { WriteIndented = true };
 
     public SavedGameLibrary? Load()

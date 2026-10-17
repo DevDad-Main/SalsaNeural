@@ -43,7 +43,7 @@ public partial class DetailPanelBuilder
     {
         var nrBase = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "DLSS-NR");
+            "SalsaNeural", "DLSS-NR");
         if (!Directory.Exists(nrBase)) return null;
 
         var stripped = StripVersionSuffix(versionString);
@@ -763,7 +763,7 @@ public partial class DetailPanelBuilder
                     {
                         var nrDir = Path.Combine(
                             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                            "RHI", "DLSS-NR", StripVersionSuffix(sel!));
+                            "SalsaNeural", "DLSS-NR", StripVersionSuffix(sel!));
                         cachedNr = ResolveCachedNrDllPath(sel!) ?? Path.Combine(nrDir, "nvngx_dlssnr.dll");
                         if (!File.Exists(cachedNr))
                             cachedNr = await dlssSvc.EnsureSpecificDlssnrCachedAsync(sel!).ConfigureAwait(false)
@@ -1904,7 +1904,7 @@ public partial class DetailPanelBuilder
         {
             var nrDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "DLSS-NR", StripVersionSuffix(nrSelectedVersion));
+                "SalsaNeural", "DLSS-NR", StripVersionSuffix(nrSelectedVersion));
             cachedNr = ResolveCachedNrDllPath(nrSelectedVersion) ?? Path.Combine(nrDir, "nvngx_dlssnr.dll");
             if (!File.Exists(cachedNr))
                 cachedNr = await dlssSvc.EnsureSpecificDlssnrCachedAsync(nrSelectedVersion).ConfigureAwait(false)
@@ -2209,7 +2209,7 @@ public partial class DetailPanelBuilder
             {
                 var nrDir = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "RHI", "DLSS-NR", nrSelectedVersion!);
+                    "SalsaNeural", "DLSS-NR", nrSelectedVersion!);
                 cachedNr = ResolveCachedNrDllPath(nrSelectedVersion!) ?? Path.Combine(nrDir, "nvngx_dlssnr.dll");
                 if (!File.Exists(cachedNr))
                     cachedNr = await dlssSvc.EnsureSpecificDlssnrCachedAsync(nrSelectedVersion!).ConfigureAwait(false)
@@ -2449,7 +2449,7 @@ public partial class DetailPanelBuilder
             {
                 var nrDir = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "RHI", "DLSS-NR", StripVersionSuffix(nrSelVer!));
+                    "SalsaNeural", "DLSS-NR", StripVersionSuffix(nrSelVer!));
                 cachedNrFeeder = ResolveCachedNrDllPath(nrSelVer!) ?? Path.Combine(nrDir, "nvngx_dlssnr.dll");
                 if (!File.Exists(cachedNrFeeder))
                     cachedNrFeeder = await dlssSvc.EnsureSpecificDlssnrCachedAsync(nrSelVer!).ConfigureAwait(false)
@@ -2545,7 +2545,7 @@ public partial class DetailPanelBuilder
                 // Try to extract from the staged feeder addon zip (versioned or latest)
                 var feederZipDir = System.IO.Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "RHI", "rdx5", "feeder");
+                    "SalsaNeural", "rdx5", "feeder");
                 var feederZip = Directory.Exists(feederZipDir)
                     ? Directory.GetFiles(feederZipDir, "*.zip", SearchOption.AllDirectories)
                           .OrderByDescending(f => File.GetLastWriteTimeUtc(f))
@@ -2855,7 +2855,7 @@ public partial class DetailPanelBuilder
                             cachedNrHost = await dlssSvc.EnsureNewestDlssnrCachedAsync().ConfigureAwait(false);
                         else
                         {
-                            var nrDirHost = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI", "DLSS-NR", StripVersionSuffix(nrSelVerHost!));
+                            var nrDirHost = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural", "DLSS-NR", StripVersionSuffix(nrSelVerHost!));
                             cachedNrHost = ResolveCachedNrDllPath(nrSelVerHost!) ?? Path.Combine(nrDirHost, "nvngx_dlssnr.dll");
                             if (!File.Exists(cachedNrHost)) cachedNrHost = await dlssSvc.EnsureSpecificDlssnrCachedAsync(nrSelVerHost!).ConfigureAwait(false)
                                                                           ?? await dlssSvc.EnsureNewestDlssnrCachedAsync().ConfigureAwait(false);

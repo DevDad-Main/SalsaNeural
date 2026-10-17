@@ -999,7 +999,7 @@ public partial class MainViewModel
         {
             var legacyDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RHI", "dxvk");
+                "SalsaNeural", "dxvk");
             var legacyVersionFile = Path.Combine(legacyDir, "version.txt");
             var legacyX64 = Path.Combine(legacyDir, "x64");
 

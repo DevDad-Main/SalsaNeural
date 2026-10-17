@@ -51,6 +51,14 @@ public class UpdateService : IUpdateService
     /// </summary>
     public async Task<UpdateInfo?> CheckForUpdateAsync(bool betaOptIn = false)
     {
+        // SalsaNeural: never self-update from upstream RHI releases — that would
+        // replace the fork with vanilla RHI. Updates ship from our own repository.
+        if (NoAdminMode.DisableSelfUpdate)
+        {
+            CrashReporter.Log("[UpdateService.CheckForUpdateAsync] Self-update disabled in SalsaNeural");
+            return null;
+        }
+
         try
         {
             // Always fetch the stable release — try /releases/latest first, then tag-based fallbacks

@@ -50,21 +50,21 @@ public partial class AuxInstallService : IAuxInstallService, IAuxFileService
     // Staging folder: %LocalAppData%\RenoDXCommander\reshade\
     public static readonly string RsStagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "reshade");
+        "SalsaNeural", "reshade");
     public static string RsStagedPath64 => Path.Combine(RsStagingDir, RsStaged64);
     public static string RsStagedPath32 => Path.Combine(RsStagingDir, RsStaged32);
 
     // Nightly (addon) ReShade staging folder: %LocalAppData%\RHI\reshade-nightly\
     public static readonly string RsNightlyStagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "reshade-nightly");
+        "SalsaNeural", "reshade-nightly");
     public static string RsNightlyStagedPath64 => Path.Combine(RsNightlyStagingDir, RsStaged64);
     public static string RsNightlyStagedPath32 => Path.Combine(RsNightlyStagingDir, RsStaged32);
 
     // Legacy ReShade staging base folder: %LocalAppData%\RHI\LegacyReshade\
     public static readonly string RsLegacyStagingBaseDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "LegacyReshade");
+        "SalsaNeural", "LegacyReshade");
 
     /// <summary>
     /// Returns the staged DLL path for a legacy ReShade version.
@@ -100,7 +100,7 @@ public partial class AuxInstallService : IAuxInstallService, IAuxFileService
     // Normal (non-addon) ReShade staging folder: %LocalAppData%\RHI\reshade-normal\
     public static readonly string RsNormalStagingDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "reshade-normal");
+        "SalsaNeural", "reshade-normal");
     public static string RsNormalStagedPath64 => Path.Combine(RsNormalStagingDir, RsStaged64);
     public static string RsNormalStagedPath32 => Path.Combine(RsNormalStagingDir, RsStaged32);
 
@@ -186,7 +186,7 @@ public partial class AuxInstallService : IAuxInstallService, IAuxFileService
     // ── Infrastructure ────────────────────────────────────────────────────────────
     private static readonly string DbPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "aux_installed.json");
+        "SalsaNeural", "aux_installed.json");
 
     // ── INI preset folder ─────────────────────────────────────────────────────────
     /// <summary>
@@ -195,7 +195,7 @@ public partial class AuxInstallService : IAuxInstallService, IAuxFileService
     /// </summary>
     public static readonly string InisDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "inis");
+        "SalsaNeural", "inis");
 
     public static string RsIniPath => Path.Combine(InisDir, "reshade.ini");
     public static string RsVulkanIniPath => Path.Combine(InisDir, "reshade.vulkan.ini");
@@ -605,6 +605,12 @@ public partial class AuxInstallService : IAuxInstallService, IAuxFileService
         }
         catch (UnauthorizedAccessException)
         {
+            if (NoAdminMode.Enabled)
+            {
+                CrashReporter.Log($"[AuxInstallService.CopyFileWithElevation] Direct copy denied, elevation blocked: {source} → {destination}");
+                NoAdminMode.ThrowElevationBlocked("Copying to this destination");
+            }
+
             CrashReporter.Log($"[AuxInstallService.CopyFileWithElevation] Direct copy denied, attempting elevated copy: {source} → {destination}");
             var psi = new ProcessStartInfo
             {

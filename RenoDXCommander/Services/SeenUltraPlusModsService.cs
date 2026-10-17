@@ -12,7 +12,7 @@ public class SeenUltraPlusModsService
 {
     private static readonly string FilePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "seen_ultraplus_mods.json");
+        "SalsaNeural", "seen_ultraplus_mods.json");
 
     private HashSet<string> _seenMods = new(StringComparer.OrdinalIgnoreCase);
     private bool _loaded;

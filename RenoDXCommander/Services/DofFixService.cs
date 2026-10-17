@@ -34,7 +34,7 @@ public class DofFixService : IDofFixService
         _crashReporter = crashReporter;
         _stagingDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "ue-dof-fix");
+            "SalsaNeural", "ue-dof-fix");
         _versionFile = Path.Combine(_stagingDir, "version.txt");
     }
 

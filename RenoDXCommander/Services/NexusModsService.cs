@@ -16,7 +16,7 @@ public class NexusModsService : INexusModsService
 
     private static readonly string CachePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "nexus_games.json");
+        "SalsaNeural", "nexus_games.json");
 
     private static readonly TimeSpan CacheTtl = TimeSpan.FromHours(24);
 

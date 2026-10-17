@@ -180,6 +180,13 @@ public partial class DlssPresetService
             if (sessionHandle != IntPtr.Zero && baseHandle != IntPtr.Zero)
                 SetSettingRawNvApi(sessionHandle, baseHandle, REBAR_ENABLE_ID, mode);
 
+            // SalsaNeural: skip the elevated PS sync of legacy IDs — requires admin.
+            if (NoAdminMode.Enabled)
+            {
+                CrashReporter.Log("[DlssPresetService.SetGlobalReBarEnableMode] Legacy ReBAR ID sync skipped (NoAdminMode)");
+                return true;
+            }
+
             // Sync legacy REBAR_FEATURE_ID + REBAR_EXPR_MODES_ID + REBAR_SIZE_LIMIT_ID via PS helper
             // (base profile writes for these require elevation on most systems)
             var nvApiPath  = Path.Combine(AppContext.BaseDirectory, "NvAPIWrapper.dll");
@@ -346,6 +353,12 @@ $session.Save()
     /// <summary>Writes ReBAR Size Limit via PowerShell using NvAPIWrapper (fallback when raw NVAPI returns error).</summary>
     private bool SetReBarSizeLimitViaPs(string? profileName, ulong sizeBytes, bool useBaseProfile)
     {
+        if (NoAdminMode.Enabled)
+        {
+            CrashReporter.Log("[DlssPresetService.SetReBarSizeLimitViaPs] Blocked — requires elevation (NoAdminMode)");
+            return false;
+        }
+
         try
         {
             var scriptPath = Path.Combine(Path.GetTempPath(), "rhi_rebar_size_ps.ps1");
@@ -499,6 +512,13 @@ try {{
     /// <summary>Sets ReBAR via an elevated process that re-invokes NVAPI with admin rights.</summary>
     private bool SetReBarElevated(string gameName, string installPath, bool enabled, uint mode)
     {
+        if (NoAdminMode.Enabled)
+        {
+            _ = gameName; _ = installPath; _ = enabled; _ = mode;
+            CrashReporter.Log("[DlssPresetService.SetReBarElevated] Blocked — requires elevation (NoAdminMode)");
+            return false;
+        }
+
         try
         {
             // Resolve the actual NVIDIA profile name (may differ from RHI game name)

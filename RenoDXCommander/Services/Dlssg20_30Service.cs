@@ -49,7 +49,7 @@ public class Dlssg20_30Service
         _crashReporter = crashReporter;
         _stagingDir    = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "dlssg2030");
+            "SalsaNeural", "dlssg2030");
         _versionFile   = Path.Combine(_stagingDir, "version.txt");
     }
 

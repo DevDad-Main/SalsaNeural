@@ -17,7 +17,7 @@ public class LumaService : ILumaService
 
     private static readonly string DbPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "luma_installed.json");
+        "SalsaNeural", "luma_installed.json");
 
     private readonly HttpClient _http;
     private readonly ShaderPackService _shaderPackService;

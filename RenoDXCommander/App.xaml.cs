@@ -187,7 +187,7 @@ public partial class App : Application
         // Also check for signal file (used when Admin Mode relaunches via scheduled task)
         var minimizedSignalPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "RHI", "rhi_start_minimized");
+            "SalsaNeural", "rhi_start_minimized");
         if (File.Exists(minimizedSignalPath))
         {
             startMinimized = true;
@@ -240,8 +240,8 @@ public partial class App : Application
         // Set minimized flag BEFORE creating the window so the constructor can read it
         _startMinimized = startMinimized;
 
-        // ── Admin Mode: if the scheduled task exists and we're not elevated, relaunch via task ──
-        if (!IsRunningAsAdmin() && await IsAdminTaskRegisteredAsync())
+        // ── Admin Mode: disabled in SalsaNeural — never relaunch via scheduled task ──
+        if (!Services.NoAdminMode.Enabled && !IsRunningAsAdmin() && await IsAdminTaskRegisteredAsync())
         {
             try
             {
@@ -250,7 +250,7 @@ public partial class App : Application
                 // Pass minimized flag via signal file (schtasks /Run doesn't support extra args)
                 if (startMinimized)
                 {
-                    var signalDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RHI");
+                    var signalDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SalsaNeural");
                     Directory.CreateDirectory(signalDir);
                     File.WriteAllText(Path.Combine(signalDir, "rhi_start_minimized"), "");
                 }
@@ -412,9 +412,11 @@ public partial class App : Application
         try
         {
             var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var newDir = Path.Combine(localAppData, "RHI");
+            var newDir = Path.Combine(localAppData, "SalsaNeural");
 
-            // Migrate from RenoDXCommander (oldest) first, then UPST
+            // Migrate from RenoDXCommander (oldest) first, then UPST.
+            // The upstream "RHI" folder is intentionally NOT migrated — that belongs to a
+            // separate install; SalsaNeural starts fresh.
             foreach (var legacyName in new[] { "RenoDXCommander", "UPST" })
             {
                 var legacyDir = Path.Combine(localAppData, legacyName);

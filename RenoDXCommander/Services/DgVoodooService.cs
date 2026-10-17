@@ -23,7 +23,7 @@ public class DgVoodooService
 
     private static readonly string CacheDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "dgvoodoo");
+        "SalsaNeural", "dgvoodoo");
 
     private readonly HttpClient _http;
 

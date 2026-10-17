@@ -309,7 +309,7 @@ public class LiliumShaderService : ILiliumShaderService
 
     private static readonly string SettingsPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "RHI", "settings.json");
+        "SalsaNeural", "settings.json");
 
     private string? LoadStoredVersion()
     {
